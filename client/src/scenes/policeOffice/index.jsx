@@ -6,6 +6,7 @@ import { useTheme } from "@mui/system";
 import CustomerAdd from './CustomerAdd';
 import CustomerDelete from './CustomerDelete';
 
+
 const Police_office = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -44,6 +45,7 @@ const Police_office = (props) => {
 
   return (
     <Box m="20px">
+
       <Box m="40px 0 0 0" height="70vh" sx={{
         "& .MuiDataGrid-root": {
           border: "none",
@@ -67,13 +69,14 @@ const Police_office = (props) => {
           color: `${colors.grey[100]} !important`,
         },
       }}>
+        <CustomerAdd stateRefresh={stateRefresh} /> {/* stateRefresh 함수를 props로 전달 */}
         <DataGrid
           rows={data}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         ></DataGrid>
       </Box>
-      <CustomerAdd stateRefresh={stateRefresh} /> {/* stateRefresh 함수를 props로 전달 */}
+      
     </Box>
   );
 }
