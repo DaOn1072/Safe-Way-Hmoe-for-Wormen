@@ -1,4 +1,5 @@
 # Getting Started with Create React App
+본 프로젝트는 효율적인 보안을 위해 만들어진 관제 시스템이다.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
