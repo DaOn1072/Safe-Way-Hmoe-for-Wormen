@@ -3,6 +3,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/system";
+import CustomerAdd from './CustomerAdd';
 
 const Police_office = (props) => {
   const theme = useTheme();
@@ -19,12 +20,17 @@ const Police_office = (props) => {
 
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    // API를 호출하여 데이터를 가져옵니다. (API 경로를 실제 경로로 수정해야 합니다.)
+  const stateRefresh = () => {
+    // stateRefresh 함수 정의
     fetch('/api/customers')
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));
+      
+  };
+
+  useEffect(() => {
+    stateRefresh(); // 컴포넌트가 로드될 때 데이터 불러오기
   }, []);
 
   return (
@@ -58,6 +64,7 @@ const Police_office = (props) => {
           components={{ Toolbar: GridToolbar }}
         />
       </Box>
+      <CustomerAdd stateRefresh={stateRefresh} /> {/* stateRefresh 함수를 props로 전달 */}
     </Box>
   );
 }

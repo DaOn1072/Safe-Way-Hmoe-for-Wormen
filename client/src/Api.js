@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 // import Customer from './components/Customer';
-// import CustomerAdd from './components/CustomerAdd';
+
+
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import './App.css';
 import { withStyles } from '@mui/styles';
+
 
 const styles = (theme) => ({
   root: {
@@ -76,6 +78,7 @@ class Api extends Component {
           components={{ Toolbar: GridToolbar }}
         />
       </div>
+      
     );
   }
 }
