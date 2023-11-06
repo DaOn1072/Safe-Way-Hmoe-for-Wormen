@@ -5,6 +5,7 @@ import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
+import Police_office from "./scenes/policeOffice";
 import Contacts from "./scenes/contacts";
 import Invoices from "./scenes/invoices";
 import Form from "./scenes/form";
@@ -37,7 +38,7 @@ function App() {
             <Route path="/bar" element={<Bar />} />
             <Route path="/pie" element={<Pie />} />
             <Route path="/line" element={<Line />} />
-
+            <Route path="/police_office" element={<Police_office />} />
             <Route path="/geography" element={<Geography />} />
 
           </Routes>
