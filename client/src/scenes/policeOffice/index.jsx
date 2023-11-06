@@ -4,6 +4,7 @@ import { tokens } from "../../theme";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/system";
 import CustomerAdd from './CustomerAdd';
+import CustomerDelete from './CustomerDelete';
 
 const Police_office = (props) => {
   const theme = useTheme();
@@ -12,10 +13,18 @@ const Police_office = (props) => {
   const columns = [
     { field: "id", headerName: "연번", flex: 0.5 },
     { field: "police_office", headerName: "경찰서" },
-    { field: "name", headerName: "name", flex: 1, cellClassName: "name-column-cell" },
+    { field: "name", headerName: "관서명", flex: 1, cellClassName: "name-column-cell" },
     { field: "division", headerName: "구분", headerAlign: "left", align: "left" },
-    { field: "phone_number", headerName: "Phone Number", flex: 1 },
+    { field: "phone_number", headerName: "전화번호", flex: 1 },
     { field: "address", headerName: "주소", flex: 1 },
+    {
+      field: "delete",
+      headerName: "설정",
+      flex: 0.5,
+      renderCell: (params) => (
+        <CustomerDelete id={params.row.id} stateRefresh={stateRefresh} />
+      ),
+    },
   ];
 
   const [data, setData] = useState([]);
@@ -62,7 +71,7 @@ const Police_office = (props) => {
           rows={data}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
-        />
+        ></DataGrid>
       </Box>
       <CustomerAdd stateRefresh={stateRefresh} /> {/* stateRefresh 함수를 props로 전달 */}
     </Box>

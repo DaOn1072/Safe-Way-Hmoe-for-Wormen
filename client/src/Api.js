@@ -67,7 +67,7 @@ class Api extends Component {
       { field: "division", headerName: "구분" },
       { field: "phone_number", headerName: "전화번호" },
       { field: "address", headerName: "주소" },
-    //   { field: "설정", headerName: "설정" },
+      { field: "설정", headerName: "설정" },
     ];
 
     return (
