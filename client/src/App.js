@@ -15,6 +15,8 @@ import Bar from "./scenes/bar";
 import Pie from "./scenes/pie";
 import Line from "./scenes/line";
 import Geography from "./scenes/geography";
+import Protected from "./scenes/protected";
+import Chart from "./scenes/chart";
 
 
 function App() {
@@ -39,7 +41,9 @@ function App() {
             <Route path="/pie" element={<Pie />} />
             <Route path="/line" element={<Line />} />
             <Route path="/police_office" element={<Police_office />} />
+            <Route path="/protected" element={<Protected />} />
             <Route path="/geography" element={<Geography />} />
+            <Route path="/chart" element={<Chart />} />
 
           </Routes>
         </main>

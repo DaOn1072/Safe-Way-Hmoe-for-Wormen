@@ -13,9 +13,35 @@ import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 
+import { DataGrid } from "@mui/x-data-grid";
+import React, { useState, useEffect } from 'react';
+
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const columns = [
+    { field: "id", headerName: "연번", flex: 0.5 },
+    { field: "police_office", headerName: "경찰서" },
+    { field: "name", headerName: "관서명", flex: 1, cellClassName: "name-column-cell" },
+    { field: "division", headerName: "구분", headerAlign: "left", align: "left" },
+    { field: "phone_number", headerName: "전화번호", flex: 1 },
+    { field: "address", headerName: "주소", flex: 1 },
+  ];
+
+  const [data, setData] = useState([]); // useState 사용
+  const stateRefresh = () => {
+    // stateRefresh 함수 정의
+    fetch('/api/customers')
+      .then((response) => response.json())
+      .then((data) => setData(data))
+      .catch((error) => console.error(error));
+      
+  };
+
+  useEffect(() => {
+    stateRefresh(); // 컴포넌트가 로드될 때 데이터 불러오기
+  }, []);
 
     return (
         <Box m = '20px' >
@@ -123,39 +149,42 @@ const Dashboard = () => {
             </Box>
 
             {/* ROW 2 */}
-            <Box 
-              gridColumn="span 8"
-              gridRow="span 2"
-              backgroundColor={colors.primary[400]}
-            >
-              <Box 
-                mt="25px"
-                p="0 30px"
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Box>
-                  <Typography variant="h5" fontWeight="600" color={colors.grey[100]}>
-                  Annual Crime Status
-                  </Typography>
-                  <Typography variant="h3" fontWeight="bold" color={colors.greenAccent[500]}>
-                    2023
-                  </Typography>
-                </Box>
-
-                <Box>
-                  <IconButton>
-                    <DownloadOutlinedIcon 
-                      sx={{ fontSize: "26px", color: colors.greenAccent[500]}}
-                    />
-                  </IconButton>
-                </Box>
-              </Box>
-              <Box height="250px" mt="-20px">
-                <LineChart isDashboard={true} />
-              </Box>
-              </Box>
+            <Box
+          gridColumn="span 7"
+          gridRow="span 3"
+          backgroundColor={colors.primary[400]}
+          sx={{
+            // customers 표 꾸미기
+            "& .MuiDataGrid-root": {
+              border: "none",
+              borderRadius: "5rem",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+              color: colors.greenAccent[300],
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: colors.blueAccent[800],
+              borderBottom: "none",
+            },
+            "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: colors.primary[400],
+            },
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "none",
+              backgroundColor: colors.blueAccent[800],
+            },
+            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+              color: `${colors.grey[100]} !important`,
+            },
+          }}
+        >
+          <DataGrid
+          rows={data}
+          columns={columns}
+        ></DataGrid>
+          
+        </Box>
 
               {/* TRANSACTIONS */}
               <Box 
@@ -276,8 +305,16 @@ const Dashboard = () => {
             <GeographyChart isDashboard={true} />
           </Box>
         </Box>
+        
           </Box>
-        </Box>
+          {/* test */}
+          
+          
+
+        
+        {/* DataGrid에서 data와 columns를 사용 */}
+        {/* <DataGrid rows={Api.state.customers} columns={Api.columns} /> */}
+      </Box>
     );
 };
 

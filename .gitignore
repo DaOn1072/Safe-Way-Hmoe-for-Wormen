@@ -3,6 +3,9 @@
 #upload
 /upload
 
+#wather api key
+/api_key.json
+
 # database
 /database.json
 

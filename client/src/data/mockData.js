@@ -317,6 +317,46 @@ export const mockTransactions = [
   },
 ];
 
+
+export const chartBarData = [
+  {
+    country: "서울청",
+    burger: 9954,
+    burgerColor: "hsl(296, 70%, 50%)",
+  },
+  {
+    country: "부산청",
+    burger: 2719,
+    burgerColor: "hsl(111, 70%, 50%)",
+  },
+  {
+    country: "대구청",
+    burger: 4125,
+    burgerColor: "hsl(96, 70%, 50%)",
+  },
+  {
+    country: "인천청",
+    burger: 3523,
+    burgerColor: "hsl(326, 70%, 50%)",
+  },
+  {
+    country: "광주청",
+    burger: 1796,
+    burgerColor: "hsl(325, 70%, 50%)",
+  },
+  {
+    country: "대전청",
+    burger: 2658,
+    burgerColor: "hsl(334, 70%, 50%)",
+  },
+  {
+    country: "울산청",
+    burger: 2439,
+    burgerColor: "hsl(141, 70%, 50%)",
+  },
+];
+
+
 export const mockBarData = [
   {
     country: "AD",
