@@ -11,6 +11,7 @@ const data = fs.readFileSync('./database.json');
 const conf = JSON.parse(data);
 const mysql = require('mysql');
 
+
 // 연결과 관련된 변수 설정(데이터베이스 설정)
 const connection = mysql.createConnection({
     host: conf.host, 
@@ -34,6 +35,17 @@ app.get('/api/customers', (req, res) => {
         }
     );
 });
+
+// 안심귀갓길 DB TABLE
+app.get('/api/saferoad', (req, res) => {
+    connection.query(
+        "SELECT * FROM SAFERETURN_ROAD",
+        (err, rows, fields) => {
+            res.send(rows);
+        }
+    );
+});
+
 
 app.use('/image', express.static('./upload'));
 

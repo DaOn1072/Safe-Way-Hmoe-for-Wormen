@@ -2,23 +2,33 @@ import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
+// import EmailIcon from "@mui/icons-material/Email";
+// import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
+// import PersonAddIcon from "@mui/icons-material/PersonAdd";
+// import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
+// import LineChart from "../../components/LineChart";
 import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
-import StatBox from "../../components/StatBox";
-import ProgressCircle from "../../components/ProgressCircle";
+// import StatBox from "../../components/StatBox";
+// import ProgressCircle from "../../components/ProgressCircle";
 
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useState, useEffect } from 'react';
+// import CCTVViewer from "../ccTVViewer";
+// import Cctv from "../ccTVViewer/index";
+import api_key from "../../api_key.json";
 
 const Dashboard = () => {
+
+  const API_key_CCTV = api_key.API_KEY_CCTV;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const cctvStreamURL = `/view/map/openDataCctvStream.jsp?key=${API_key_CCTV}&cctvid=L010233&cctvName=%25EC%2599%2595%25EC%258B%25AD%25EB%25A6%25AC%25EC%2597%25AD%25EC%2598%25A4%25EA%25B1%25B0%25EB%25A6%25AC&kind=Seoul&cctvip=null&cctvch=52&id=179&cctvpasswd=null&cctvport=null`;
+
+  
+
+
 
   const columns = [
     { field: "id", headerName: "연번", flex: 0.5 },
@@ -70,7 +80,7 @@ const Dashboard = () => {
             gap="20px"
           >
             {/* ROW 1 */}
-            <Box 
+            {/* <Box 
               gridColumn="span 3" 
               backgroundColor={colors.primary[400]}
               display="flex"
@@ -146,7 +156,7 @@ const Dashboard = () => {
                   />
                 }
               />
-            </Box>
+            </Box> */}
 
             {/* ROW 2 */}
             <Box
@@ -188,7 +198,7 @@ const Dashboard = () => {
 
               {/* TRANSACTIONS */}
               <Box 
-                gridColumn="span 4" 
+                gridColumn="span 5" 
                 gridRow="span 2" 
                 backgroundColor = {colors.primary[400]}
                 overflow="auto"
@@ -205,8 +215,9 @@ const Dashboard = () => {
                     color={colors.grey[100]} 
                     variant="h5" 
                     fontWeight="600"
+                    backgroundColor={colors.primary[400]}
                   >
-                    Administrator List
+                    서울특별시_송파구_여성_안심귀갓길(2023.01.17)
                   </Typography>
                 </Box>
                 {mockTransactions.map((transaction, i) => (
@@ -233,21 +244,14 @@ const Dashboard = () => {
                       </Typography>
                     </Box>
                     <Box color={colors.grey[100]}>{transaction.date}</Box>
-                    <Box 
-                      backgroundColor={colors.greenAccent[500]} 
-                      p="5px 10px" 
-                      borderRadius= "4px"
-                    >
-                      ${transaction.cost}
-                    </Box>
                   </Box>
                 ))}
               </Box>
 
-              {/* ROW 3 */}
+              {/* 날짜, cctv */}
               <Box
-          gridColumn="span 4"
-          gridRow="span 2"
+          gridColumn="span 2"
+          gridRow="span 1"
           backgroundColor={colors.primary[400]}
           p="30px"
         >
@@ -260,15 +264,48 @@ const Dashboard = () => {
             alignItems="center"
             mt="25px"
           >
-            <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              positive effect
-            </Typography>
+       <Typography>Positive response to survey results</Typography>
+          </Box>
+          </Box>
+          <Box
+          gridColumn="span 3"
+          gridRow="span 1"
+          backgroundColor={colors.primary[400]}
+          p="30px"
+        >
+          <Typography variant="h5" fontWeight="600">
+            Campaign
+          </Typography>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            mt="25px"
+          >
             <Typography>Positive response to survey results</Typography>
+          </Box>
+          </Box>
+
+              {/* ROW 3 */}
+              <Box
+          gridColumn="span 4"
+          gridRow="span 2"
+          backgroundColor={colors.primary[400]}
+          p="30px"
+        >
+          <Typography variant="h6" fontWeight="600">
+            왕십리역오거리 CCTV 실시간 영상
+          </Typography>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            mt="25px"
+          >
+            <video width="480" height="210" controls>
+            <source src={cctvStreamURL} type="video/mp4" />
+            Your browser does not support the video tag.
+            </video>
           </Box>
         </Box>
         <Box

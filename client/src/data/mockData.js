@@ -199,6 +199,95 @@ export const mockDataContacts = [
   },
 ];
 
+
+export const mockDataProtected = [
+  {
+    id: 1,
+    name: "서울",
+    cidoCd: "11",
+  },
+  {
+    id: 2,
+    name: "부산",
+    cidoCd: "26",
+  },
+  {
+    id: 3,
+    name: "대구",
+    cidoCd: "27",
+  },
+  {
+    id: 4,
+    name: "인천",
+    cidoCd: "28",
+  },
+  {
+    id: 5,
+    name: "광주",
+    cidoCd: "29",
+  },
+  {
+    id: 6,
+    name: "대전",
+    cidoCd: "30",
+  },
+  {
+    id: 7,
+    name: "울산",
+    cidoCd: "31",
+  },
+  {
+    id: 8,
+    name: "세종",
+    cidoCd: "36",
+  },
+  {
+    id: 9,
+    name: "경기",
+    cidoCd: "41",
+  },
+  {
+    id: 10,
+    name: "강원",
+    cidoCd: "42",
+  },
+  {
+    id: 11,
+    name: "충북",
+    cidoCd: "44",
+  },
+  {
+    id: 12,
+    name: "충남",
+    cidoCd: "44",
+  },
+  {
+    id: 13,
+    name: "전북",
+    cidoCd: "45",
+  },
+  {
+    id: 14,
+    name: "전남",
+    cidoCd: "46",
+  },
+  {
+    id: 15,
+    name: "경북",
+    cidoCd: "47",
+  },
+  {
+    id: 16,
+    name: "경남",
+    cidoCd: "48",
+  },
+  {
+    id: 17,
+    name: "제주",
+    cidoCd: "50",
+  },
+];
+
 export const mockDataInvoices = [
   {
     id: 1,
@@ -268,53 +357,87 @@ export const mockDataInvoices = [
 
 export const mockTransactions = [
   {
-    txId: "01e4dsa",
-    user: "johndoe",
-    date: "2021-09-01",
+    txId: "방이동",
+    user: "조성연도: 2016",
+    date: "방이역4번출구 → 방이1동 주민센터→신구블래스밸리아파트",
+  },
+  {
+    txId: "송파동",
+    user: "조성연도: 2017",
+    date: "송파역1번출구 → 중대초등학교 → 가락고등학교",
+  },
+  {
+    txId: "송파동",
+    user: "조성연도:2015",
+    date: "석촌역4번출구 → 송파근린공원 → 송파초교후문",
+  },
+  {
+    txId: "잠실동",
+    user: "조성연도: 2016",
+    date: "송원빌딩 → 삼전역1번출구",
+  },
+  {
+    txId: "잠실동",
+    user: "조성연도: 2016",
+    date: "올림픽로114 → 열린교회 → 잠전초등학교",
+  },
+  {
+    txId: "삼전동",
+    user: "조성연도: 2016",
+    date: "가락로9길 → 연세중앙어린이집 → 석촌초등학교",
     cost: "43.95",
   },
   {
-    txId: "0315dsaa",
-    user: "jackdower",
-    date: "2022-04-01",
-    cost: "133.45",
+    txId: "삼전동",
+    user: "조성연도: 2016",
+    date: "배명고정류장 → 대향빌딩 → 삼학사로9길 29",
   },
   {
-    txId: "01e4dsa",
-    user: "aberdohnny",
-    date: "2021-09-01",
-    cost: "43.95",
+    txId: "석촌동",
+    user: "조성연도: 2016",
+    date: "한솔병원정류장 → 호원약국 → 백제고분로37가길 16",
   },
   {
-    txId: "51034szv",
-    user: "goodmanave",
-    date: "2022-11-05",
-    cost: "200.95",
+    txId: "가락동",
+    user: "조성연도: 2016",
+    date: "개롱역3번출구 → 두남빌딩 → 동남로18길21",
   },
   {
-    txId: "0a123sb",
-    user: "stevebower",
-    date: "2022-11-02",
-    cost: "13.55",
+    txId: "장지동",
+    user: "조성연도: 2015",
+    date: "충민로6길61-6 → 위래나래교 → 위례광장로163",
   },
   {
-    txId: "01e4dsa",
-    user: "aberdohnny",
-    date: "2021-09-01",
-    cost: "43.95",
+    txId: "마천동",
+    user: "조성연도: 2017",
+    date: "마천역1번출구 → 마천동우체국 → 마천동사거리 버스정류장(거마로20길)",
   },
   {
-    txId: "120s51a",
-    user: "wootzifer",
-    date: "2019-04-15",
-    cost: "24.20",
+    txId: "마천동",
+    user: "조성연도: 2016",
+    date: "마천역2번출구 → GS마천센터점 → 마천제일의원(성내천로 260)",
   },
   {
-    txId: "0315dsaa",
-    user: "jackdower",
-    date: "2022-04-01",
-    cost: "133.45",
+    txId: "풍납동",
+    user: "조성연도: 2016",
+    date: "강동구청역5번출구 → 영파여자중학교후문 → 풍납1치안센터",
   },
+  {
+    txId: "오금동",
+    user: "조성연도: 2016",
+    date: "마천로 53 → 세븐일레븐 → 위례성대로 158",
+  },
+  {
+    txId: "오금동",
+    user: "조성연도: 2018",
+    date: "오금동송파농협 → 목련공원 → 동남로26길 42",
+  },
+  {
+    txId: "가락동",
+    user: "조성연도: 2018",
+    date: "가락시장역 3번출구 → 소방공제회관 → 스타벅스 → 1)가락본동우체국 2)SC제일은행",
+  },
+  
 ];
 
 

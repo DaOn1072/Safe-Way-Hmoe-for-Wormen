@@ -17,6 +17,11 @@ import Line from "./scenes/line";
 import Geography from "./scenes/geography";
 import Protected from "./scenes/protected";
 import Chart from "./scenes/chart";
+import ProtectedScenes from "./scenes/protectedScenes";
+import CCTVViewer from "./scenes/ccTVViewer";
+import SafeReturnHome from "./scenes/safe_return_home";
+import React from 'react';
+import SafeReturnRoad from "./scenes/safeReturnRoad";
 
 
 function App() {
@@ -44,7 +49,10 @@ function App() {
             <Route path="/protected" element={<Protected />} />
             <Route path="/geography" element={<Geography />} />
             <Route path="/chart" element={<Chart />} />
-
+            <Route path="/protectedScenes" element={<ProtectedScenes />} />
+            <Route path="/cctv" element={<CCTVViewer /> }/>
+            <Route path="/returnHome" element={<SafeReturnHome />} />
+            <Route path="/returnRoad" element={<SafeReturnRoad />} />
           </Routes>
         </main>
       </div>
