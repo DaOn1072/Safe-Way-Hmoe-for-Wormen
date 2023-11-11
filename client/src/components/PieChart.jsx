@@ -6,7 +6,9 @@ import { mockPieData as data } from "../data/mockData";
 const PieChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
+    
     <ResponsivePie
       data={data}
       theme={{
@@ -68,7 +70,7 @@ const PieChart = () => {
           type: "patternDots",
           background: "inherit",
           color: "rgba(255, 255, 255, 0.3)",
-          size: 4,
+          size: 6,
           padding: 1,
           stagger: true,
         },
@@ -84,29 +86,29 @@ const PieChart = () => {
       ]}
       legends={[
         {
-          anchor: "bottom",
-          direction: "row",
+          anchor: "bottom-right",
+          direction: "column",
           justify: false,
-          translateX: 0,
-          translateY: 56,
-          itemsSpacing: 0,
+          translateX: 80,
+          translateY: 26,
+          itemsSpacing: 2,
           itemWidth: 100,
           itemHeight: 18,
-          itemTextColor: "#999",
           itemDirection: "left-to-right",
           itemOpacity: 1,
-          symbolSize: 18,
+          symbolSize: 10,
           symbolShape: "circle",
           effects: [
             {
               on: "hover",
               style: {
-                itemTextColor: "#000",
+                itemOpacity: 1,
               },
             },
           ],
-        },
+        }
       ]}
+
     />
   );
 };

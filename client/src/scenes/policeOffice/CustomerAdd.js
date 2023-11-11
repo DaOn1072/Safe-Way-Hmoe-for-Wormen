@@ -81,7 +81,7 @@ const CustomerAdd = (props) => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <Header title="경찰청_경찰관서 위치 주소 현황" subtitle="지방청, 경찰서, 관서명, 지구대,파출소, 주소 정보를 가지고 있습니다." />
+      <Header title="경찰청_경찰관서 위치 주소 현황" subtitle="경찰서, 관서명, 지구대,파출소 주소 정보를 제공하고 있습니다. (데이터 제공: 공공데이터 포털)" />
       <Button variant="contained" sx={{ backgroundColor: colors.blueAccent[700], color: theme.palette.common.white, margin: 1.5, padding: 2, fontSize: 14, fontWeight: "bold" }} onClick={handleOpen}>
         경찰 데이터 추가하기
       </Button>

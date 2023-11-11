@@ -7,6 +7,42 @@ const ApiBarChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const [data, setData] = useState(null);
+    const [cctvData, setCCTVData] = useState({
+        어린이보호구역: { installed: 0, notInstalled: 0 },
+        노인보호구역: { installed: 0, notInstalled: 0 },
+        장애인보호구역: { installed: 0, notInstalled: 0 },
+    });
+
+    
+    const onDataReceived = (receivedData, installedCCTVData, notInstalledCCTVData) => {
+        setData(receivedData);
+
+        // 데이터를 가공하여 CCTV 설치 여부 및 수를 업데이트
+        installedCCTVData.forEach(item => {
+            const facilityType = getFacilityTypeDescription(item.FCLTY_TY);
+            cctvData[facilityType].installed += 1;
+        });
+
+        notInstalledCCTVData.forEach(item => {
+            const facilityType = getFacilityTypeDescription(item.FCLTY_TY);
+            cctvData[facilityType].notInstalled += 1;
+        });
+    }
+
+    function getFacilityTypeDescription(facilityType) {
+        switch (facilityType) {
+            case '1':
+                return '어린이보호구역';
+            case '2':
+                return '노인보호구역';
+            case '3':
+                return '장애인보호구역';
+            default:
+                return '알 수 없음';
+        }
+    }
+
   return (
     <ResponsiveBar
       data={data}
@@ -44,8 +80,8 @@ const ApiBarChart = () => {
           },
         },
       }}
-      keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
-      indexBy="country"
+      keys={["hot dog", "burger"]}
+      indexBy="cctv_yn"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
       valueScale={{ type: "linear" }}

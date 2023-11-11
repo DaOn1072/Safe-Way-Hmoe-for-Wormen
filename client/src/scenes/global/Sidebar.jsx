@@ -134,22 +134,22 @@ const Sidebar = () => {
               Data
             </Typography>
             <Item
-              title="Police Manage"
+              title="경찰청-경찰관서 주소"
               to="/police_office"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Protected Information"
+              title="보호구역 데이터"
               to="/protectedScenes"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Invoices Balances"
-              to="/invoices"
+              title="여성안심 귀갓길 데이터"
+              to="/returnroad"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

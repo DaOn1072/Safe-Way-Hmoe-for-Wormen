@@ -44,9 +44,9 @@ const BarChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
+      keys={["SafetyBells", "CCTV", "SecurityLight", "InformationSign"]}
       indexBy="country"
-      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+      margin={{ top: 10, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
@@ -81,7 +81,6 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "country", // changed
         legendPosition: "middle",
         legendOffset: 32,
       }}
@@ -89,7 +88,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "food", // changed
+        legend: isDashboard ? undefined : "합계", // changed
         legendPosition: "middle",
         legendOffset: -40,
       }}
@@ -106,7 +105,7 @@ const BarChart = ({ isDashboard = false }) => {
           anchor: "bottom-right",
           direction: "column",
           justify: false,
-          translateX: 120,
+          translateX: 110,
           translateY: 0,
           itemsSpacing: 2,
           itemWidth: 100,

@@ -125,11 +125,11 @@ export default function ProtectedScenes() {
 
     return (
         <div className='protectedScenes'>
-            <Header title="보호구역 데이터" subtitle="전국 보호구역(어린이, 노인, 장애인) 데이터를 제공합니다. 경찰청(UTIC)제공" />
+            <Header title="보호구역 데이터" subtitle="전국 보호구역(어린이, 노인, 장애인) 데이터를 제공합니다. " />
             <ProtectedAreaAPI onDataReceived={onDataReceived} />
             <div className='protectedTop'>
                 <div className='protectedTopLeft'>
-                        <Box m="7px 0 0 0" height="40vh" backgroundColor={colors.primary[400]} sx={{
+                        <Box m="7px 0 0 0" height="45vh" backgroundColor={colors.primary[400]} sx={{
                             width: "100%",
                             "& .MuiDataGrid-root": {
                                 border: "none",
@@ -144,6 +144,10 @@ export default function ProtectedScenes() {
                                 backgroundColor: colors.blueAccent[700],
                                 borderBottom: "none",
                             },
+                            "& .MuiDataGrid-footerContainer": {
+                                borderTop: "none",
+                                backgroundColor: colors.blueAccent[700],
+                              },
                             "& .MuiDataGrid-virtaulScroller": {
                                 backgroundColor: colors.primary[400],
                             },
@@ -159,15 +163,15 @@ export default function ProtectedScenes() {
                         </Box>
             </div>
             <div className="protectedTopRight">
-            <Box m = "0px 20px 20px 20px" height="40vh" backgroundColor = {colors.primary[400]} sx={{}}>
+            <Box m = "0px 20px 20px 20px" height="45vh" backgroundColor = {colors.primary[400]} sx={{ padding: "20px", fontSize: "19px"}}>
             {data && (
-                <div padding="10px">
+                <div>
                     <h2>{data.items.length > 0 ? data.items[0].SIDO_NM : ''}</h2>
                     <p>보호구역별 설치된 CCTV 수</p>
                     <ul>
                         {Object.keys(cctvData).map(facilityType => (
-                            <li key={facilityType}>
-                                {facilityType}<br /> 설치된 CCTV {cctvData[facilityType].installed}, 설치되지 않은 CCTV {cctvData[facilityType].notInstalled}
+                            <li key={facilityType} style={{ marginBottom: '10px' }}>
+                                <span style={greenStyle}>{facilityType}</span><br /> 설치된 CCTV {cctvData[facilityType].installed}, 설치되지 않은 CCTV {cctvData[facilityType].notInstalled}
                             </li>
                         ))}
                     </ul>
@@ -177,7 +181,7 @@ export default function ProtectedScenes() {
             
             </div>
         </div>
-        <div className='protectedBottom' style={leftStyle}>
+        <Box className='protectedBottom' sx={{marginTop: "6px"}} style={leftStyle}>
         <span className='protectedName' style={greenStyle}>#. 시도코드</span>
                     
             <div className='protectedBottomLeft' style={lightStyle}>
@@ -207,7 +211,7 @@ export default function ProtectedScenes() {
     
 
             </div>
-            </div>
+            </Box>
             <div class="utic" style={greenStyle}>*해당 데이터는 경찰청(utic)로부터 제공 받았습니다.</div>
             </div>
 
