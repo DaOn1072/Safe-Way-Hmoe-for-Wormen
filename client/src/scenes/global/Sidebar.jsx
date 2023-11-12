@@ -16,6 +16,10 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
+import LocalPoliceOutlinedIcon from '@mui/icons-material/LocalPoliceOutlined';
+import FolderSharedOutlinedIcon from '@mui/icons-material/FolderSharedOutlined';
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -134,23 +138,31 @@ const Sidebar = () => {
               Data
             </Typography>
             <Item
-              title="경찰청-경찰관서 주소"
-              to="/police_office"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
               title="보호구역 데이터"
               to="/protectedScenes"
-              icon={<ContactsOutlinedIcon />}
+              icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="여성안심 귀갓길 데이터"
+              title="여성안심귀갓길 데이터"
               to="/returnroad"
-              icon={<ReceiptOutlinedIcon />}
+              icon={<FolderSharedOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+                                                <Item
+              title="여성안심지킴이집 위치"
+              to="/mapkakao"
+              icon={<MapOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+              <Item
+              title="경찰청-경찰관서 주소"
+              to="/police_office"
+              icon={<LocalPoliceOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -162,22 +174,22 @@ const Sidebar = () => {
             >
               Pages
             </Typography>
-            <Item
+            {/* <Item
               title="Profile Form"
               to="/form"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
-              title="Calendar"
+              title="날씨 관제"
               to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
+              icon={<WbSunnyOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="FAQ Page"
+              title="신고 데이터 목록"
               to="/faq"
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
@@ -192,20 +204,20 @@ const Sidebar = () => {
               Charts
             </Typography>
             <Item
-              title="Bar Chart"
+              title="신고 통계 그래프"
               to="/bar"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Pie Chart"
+              title="기간별 통계 그래프"
               to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
+              icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Line Chart"
               to="/line"
               icon={<TimelineOutlinedIcon />}
@@ -218,7 +230,7 @@ const Sidebar = () => {
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
           </Box>
         </Menu>
       </ProSidebar>

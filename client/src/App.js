@@ -22,6 +22,7 @@ import SafeReturnHome from "./scenes/safe_return_home";
 import React from 'react';
 import SafeReturnRoad from "./scenes/safeReturnRoad";
 import BarChart from "./components/BarChart";
+import MapKaKao from "./scenes/mapKakao";
 
 function App() {
   const [ theme, colorMode] = useMode();
@@ -52,6 +53,7 @@ function App() {
             <Route path="/returnHome" element={<SafeReturnHome />} />
             <Route path="/returnRoad" element={<SafeReturnRoad />} />
             <Route path="/bar" element={<BarChart />} />
+            <Route path="/mapkakao" element={<MapKaKao />} />
           </Routes>
         </main>
       </div>

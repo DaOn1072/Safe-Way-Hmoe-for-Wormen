@@ -46,6 +46,16 @@ app.get('/api/saferoad', (req, res) => {
     );
 });
 
+// 여성안심지킴이집 DB TABLE
+app.get('/api/safehouse', (req, res) => {
+    connection.query(
+        "SELECT * FROM SAFEGUARDING_HOUSE",
+        (err, rows, fields) => {
+            res.send(rows);
+        }
+    );
+});
+
 
 app.use('/image', express.static('./upload'));
 

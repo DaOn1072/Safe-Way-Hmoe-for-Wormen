@@ -18,6 +18,8 @@ import React, { useState, useEffect } from 'react';
 // import CCTVViewer from "../ccTVViewer";
 // import Cctv from "../ccTVViewer/index";
 import api_key from "../../api_key.json";
+import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
+import PieChart from "../../components/PieChart";
 
 const Dashboard = () => {
 
@@ -56,7 +58,7 @@ const Dashboard = () => {
     return (
         <Box m = '20px' >
           <Box display = 'flex' justifyContent='space-between' alignItems="center">
-            <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+            <Header title="DASHBOARD" subtitle="데이터 관리 대시보드" />
           <Box>
             <Button
               sx = {{ backgroundColor: colors.blueAccent[700], 
@@ -255,34 +257,39 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           p="30px"
         >
-          <Typography variant="h5" fontWeight="600">
-            Campaign
+          <Typography variant="h5" fontWeight="600" color={colors.grey[100]}>
+            지역: 서울
           </Typography>
           <Box
             display="flex"
             flexDirection="column"
             alignItems="center"
-            mt="25px"
+            mt="5px"
           >
-       <Typography>Positive response to survey results</Typography>
+       <Typography>오전 7:00 맑음 <WbSunnyOutlinedIcon /> <br />강수(설)량: 0mm<br /><span>도로위험 상황예보(없음)</span></Typography>
           </Box>
           </Box>
           <Box
           gridColumn="span 3"
           gridRow="span 1"
           backgroundColor={colors.primary[400]}
+          alignItems="center"
           p="30px"
         >
-          <Typography variant="h5" fontWeight="600">
-            Campaign
+          <Typography variant="h5" fontWeight="600" color={colors.grey[100]}>
+            재난상황안내
           </Typography>
           <Box
             display="flex"
             flexDirection="column"
+            mt="10px"
+            fontSize= "19px"
             alignItems="center"
-            mt="25px"
           >
-            <Typography>Positive response to survey results</Typography>
+            <Typography fontSize= "32px" fontWeight="600" color= {colors.greenAccent[300]}>재난상황 없음</Typography>
+
+            
+
           </Box>
           </Box>
 
@@ -302,10 +309,7 @@ const Dashboard = () => {
             alignItems="center"
             mt="25px"
           >
-            <video width="480" height="210" controls>
-            <source src={cctvStreamURL} type="video/mp4" />
-            Your browser does not support the video tag.
-            </video>
+            <img src={`../../assets/cctv.png`} alt="CCTV Image" width="360" height="210" />
           </Box>
         </Box>
         <Box
@@ -319,9 +323,9 @@ const Dashboard = () => {
             sx={{ padding: "30px 30px 0 30px" }}
           >
             
-            Seoul area
+            방범 시스템 미설치 수치
           </Typography>
-          <Box height="250px" mt="-20px">
+          <Box height="230px" mt="10px">
             <BarChart isDashboard={true} />
           </Box>
         </Box>
@@ -336,10 +340,10 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ marginBottom: "15px" }}
           >
-            Geography Based Traffic
+            방범 시스템 합계
           </Typography>
-          <Box height="200px">
-            <GeographyChart isDashboard={true} />
+          <Box height="270px" mt="10px">
+            <PieChart isDashboard={true} />
           </Box>
         </Box>
         

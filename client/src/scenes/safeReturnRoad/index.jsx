@@ -88,7 +88,7 @@ const SafeReturnRoad = (props) => {
 
   return (
     <div className='protectedScenes'>
-        <Header title="여성안심 귀갓길 데이터 목록" subtitle="서울시에 위치한 여성안심 귀갓길의 방범 시스템 데이터를 제공합니다.(데이터 제공: 서울 열린데이터 광장)" />
+        <Header title="여성안심귀갓길 데이터 목록" subtitle="서울시에 위치한 여성안심귀갓길의 방범 시스템 데이터를 제공합니다.(데이터 제공: 서울 열린데이터 광장)" />
         <div className='protectedTop'>
             <div className='protectedTopLeft'>
             <Box 

@@ -1,6 +1,4 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# api_key.json 파일을 무시
-/api_key.json
-
-/index.html
+# kakao API
+/index.jsx
