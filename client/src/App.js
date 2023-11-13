@@ -23,18 +23,22 @@ import React from 'react';
 import SafeReturnRoad from "./scenes/safeReturnRoad";
 import BarChart from "./components/BarChart";
 import MapKaKao from "./scenes/mapKakao";
+import PostApp from "./PostApp";
+import PostView from "./page/post/PostView";
+import LinkingScreen from "./scenes/test";
 
 function App() {
-  const [ theme, colorMode] = useMode();
+  const [theme, colorMode] = useMode();
 
-  return (<ColorModeContext.Provider value = {colorMode}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <div className="app">
-        <Sidebar />
-        <main className="content">
-          <Topbar />
-          <Routes>
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="app">
+          <Sidebar />
+          <main className="content">
+            <Topbar />
+            <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/team" element={<Team />} />
             <Route path="/contacts" element={<Contacts />} />
@@ -54,11 +58,14 @@ function App() {
             <Route path="/returnRoad" element={<SafeReturnRoad />} />
             <Route path="/bar" element={<BarChart />} />
             <Route path="/mapkakao" element={<MapKaKao />} />
-          </Routes>
-        </main>
-      </div>
-    </ThemeProvider>
-  </ColorModeContext.Provider>
+            <Route path="/post" element={<PostApp />} />
+            <Route path="/post/:no" element={<PostView />} />
+            <Route path="/span" element={<LinkingScreen />} />
+            </Routes>
+          </main>
+        </div>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 }
 

@@ -189,7 +189,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="신고 데이터 목록"
+              title="신고 데이터 수신"
               to="/faq"
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
