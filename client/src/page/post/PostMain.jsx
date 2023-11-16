@@ -5,25 +5,31 @@ import PostList from './PostList';
 import { Box } from '@mui/system';
 import Header from '../../components/Header';
 
+
 const PostMain = props => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+
+
   return (
-      <div className="PostListScenes">
+      <div className="PostListScenes" style={{margin: "20px"}}>
       <Header
-        title="여성안심귀갓길 데이터 목록"
-        subtitle="서울시에 위치한 여성안심귀갓길의 방범 시스템 데이터를 제공합니다.(데이터 제공: 서울 열린데이터 광장)"
-        sx={{ margin: "20px", color: colors.greenAccent[300], color: colors.greenAccent[300] }}
+        title="신고 데이터 게시판"
+        subtitle="수신 완료된 데이터가 저장되어 있는 게시판입니다. 신고 접수 여부와 기록을 제공합니다."
       />
-      <Box m="0px 10px 20px 10px" height="30vh" sx={{ marginTop: '29px', textAlign: "center"}}>
-        <Box height="50vh">
-      <h2 align="center">게시판</h2>
+      <Box height="80vh" sx={{ marginTop: '29px', textAlign: "center", color: colors.grey[100] }}>
+        <Box height="80vh">
+      <h1 align="center">수신 확인된 데이터 게시판 </h1>
       <PostList />
       </Box>
       </Box>
+
       </div>
   )
+
+
+
 }
 
 export default PostMain;

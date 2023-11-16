@@ -10,7 +10,7 @@ import { tokens } from "../../theme";
 const EmergencyLocation = () => {
   const phoneNumber = '01079131645';
   const email = 'zxcv17653@gmail.com';
-  const fixedMessage = '2023-11-13 15:07:23 \n서울특별시 성동구 사근동 10길 16 도로에서 위급상황이 인식 되었습니다. \n성동 파출소에 주변 순찰을 요청합니다.';
+  const fixedMessage = '2023-11-14 15:07:23 \n서울특별시 성동구 사근동 10길 16 도로에서 위급상황이 인식 되었습니다. \n성동경찰서에 주변 순찰을 요청합니다.';
 
   const handlePhoneClick = () => {
       window.open(`tel:${phoneNumber}`);
@@ -54,14 +54,12 @@ const EmergencyLocation = () => {
       const lat = parseFloat(location.latitude);
       const lon = parseFloat(location.hardness);
 
-      // Calculate the absolute differences between target and current latitude/longitude
+      // 대상과 현재 위도/경도 간의 절대 차이를 계산합니다.
       const latDiff = Math.abs(lat - targetLat);
       const lonDiff = Math.abs(lon - targetLon);
 
-      // Use the sum of absolute differences as a measure of "closeness"
       const totalDiff = latDiff + lonDiff;
-
-      // Update the closest location if the current location is closer
+      // 현재 위치가 더 가까우면 가장 가까운 위치를 업데이트하세요.
       if (totalDiff < minDiff) {
         minDiff = totalDiff;
         closestLocation = location;
@@ -89,19 +87,19 @@ const EmergencyLocation = () => {
     <Box m="20px">
       <Header title="신고 확인 페이지" subtitle="금일 위급상황이 발생된 위치와 날짜 데이터를 제공합니다. 해당 데이터에 대해 가장 가까운 파출소에 신고할 수 있습니다." />
       <Accordion
-        defaultExpanded
+        defaultExpanded={isAccordionOpen}  // 여기서 isAccordionOpen을 사용하도록 수정
         onChange={() => setIsAccordionOpen(!isAccordionOpen)}
       >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Box display="flex" justifyContent="space-between" sx={{ width: "100%"}}>
             <Typography color={colors.greenAccent[500]} variant="h3" padding="10px" fontWeight="bold" >
-              {`2023-11-13 15:07:23 위급상황 발생 ${targetLatitude}, ${targetLongitude}`}
+              {`2023-11-14 15:07:23 위급상황 발생 ${targetLatitude}, ${targetLongitude}`}
             </Typography>
           </Box>
         </AccordionSummary>
         <AccordionDetails>
           <Box display="flex" justifyContent="space-between">
-            <Typography fontSize="20px" padding="10px">
+            <Typography fontSize="20px" padding="10px" sx={{color: colors.grey[100]}}>
               {`근처 도로: ${closestRoad?.map_name_address} | 가장 가까운 경찰서: ${closestRoad?.police_signature}`}
             </Typography>
             <Box>
@@ -122,7 +120,7 @@ const EmergencyLocation = () => {
               </Button>
               <Button
                 variant="contained"
-                sx={{ backgroundColor: colors.redAccent[500], color: 'white', margin: "10px 50px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }}
+                sx={{ backgroundColor: colors.redAccent[500], color: colors.grey[100], margin: "10px 50px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }}
                 onClick={handleConfirmation}
               >
                 신고 확인
@@ -132,21 +130,21 @@ const EmergencyLocation = () => {
         </AccordionDetails>
       </Accordion>
       <Accordion
-        defaultExpanded
-        onChange={() => setIsAccordionOpen(!isAccordionOpen)}
-      >
+          defaultExpanded={false}  // 초기에 닫힌 상태로 시작하도록 설정
+          onChange={() => setIsAccordionOpen(!isAccordionOpen)}
+        >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Box display="flex" justifyContent="space-between" sx={{ width: "100%"}}>
             
           <Typography color={colors.greenAccent[500]} variant="h3" padding="10px" fontWeight="bold" >
-            2023-11-13 14:28:53 위급상황 발생 37.559337, 127.040945
+            2023-11-14 14:28:53 위급상황 발생 37.559337, 127.040945
 
           </Typography>
         </Box>
         </AccordionSummary>
         <AccordionDetails>
         <Box display="flex" justifyContent="space-between">
-          <Typography fontSize="20px" padding="10px">
+          <Typography fontSize="20px" padding="10px" sx={{color: colors.grey[100]}}>
             근처 도로: 서울특별시 성동구 마조로5길 8 | 가장 가까운 경찰서: 성동경찰서
           </Typography>
           <Box>
@@ -167,7 +165,7 @@ const EmergencyLocation = () => {
             </Button>
             <Button
             variant="contained"
-            sx={{ backgroundColor: colors.redAccent[500], color: 'white', margin: "10px 50px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }}
+            sx={{ backgroundColor: colors.redAccent[500], color: colors.grey[100], margin: "10px 50px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }}
             onClick={handleConfirmation}
             >
             신고 확인
@@ -177,33 +175,39 @@ const EmergencyLocation = () => {
         </Box>
         </AccordionDetails>
       </Accordion>
-      <Accordion defaultExpanded>
+      <Accordion
+          defaultExpanded={false}  // 초기에 닫힌 상태로 시작하도록 설정
+          onChange={() => setIsAccordionOpen(!isAccordionOpen)}
+        >
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography color={colors.greenAccent[500]} variant="h3" padding="10px" fontWeight="bold" >
-            2023-11-13 13:02:03 위급상황 발생 37.560370, 127.036091
+            2023-11-14 13:49:17 위급상황 발생 37.560370, 127.036091
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
+            <Typography sx={{color: colors.grey[100]}}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
               malesuada lacus ex, sit amet blandit leo lobortis eget.
             </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion defaultExpanded>
+        <Accordion
+          defaultExpanded={false}  // 초기에 닫힌 상태로 시작하도록 설정
+          onChange={() => setIsAccordionOpen(!isAccordionOpen)}
+        >
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography color={colors.greenAccent[500]} variant="h3" padding="10px" fontWeight="bold" >
-            2023-11-13 13:49:17 위급상황 발생 37.562530, 127.036123
+            2023-11-14 13:02:03 위급상황 발생 37.562530, 127.036123
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
+            <Typography sx={{color: colors.grey[100]}}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
               malesuada lacus ex, sit amet blandit leo lobortis eget.
             </Typography>
           </AccordionDetails>
         </Accordion>
-      <Dialog open={isConfirmationModalOpen} onClose={handleConfirmationClose} sx={{fontSize: "16px"}}>
+      <Dialog open={isConfirmationModalOpen} onClose={handleConfirmationClose} sx={{fontSize: "16px",color: colors.grey[100]}}>
         <DialogTitle sx={{fontSize: "28px"}}>위급상황 확인</DialogTitle>
         <DialogContent>
           <Typography sx={{fontSize: "20px"}}>해당 데이터를 신고 완료 하겠습니까?</Typography>

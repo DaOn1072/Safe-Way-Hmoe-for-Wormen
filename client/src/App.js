@@ -1,6 +1,7 @@
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -25,10 +26,27 @@ import BarChart from "./components/BarChart";
 import MapKaKao from "./scenes/mapKakao";
 import PostApp from "./PostApp";
 import PostView from "./page/post/PostView";
-import LinkingScreen from "./scenes/test";
+import EmergencyModal from "./scenes/modal";
+
 
 function App() {
   const [theme, colorMode] = useMode();
+
+  const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === ' ') {
+        setEmergencyModalOpen(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -38,6 +56,7 @@ function App() {
           <Sidebar />
           <main className="content">
             <Topbar />
+            
             <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/team" element={<Team />} />
@@ -60,8 +79,8 @@ function App() {
             <Route path="/mapkakao" element={<MapKaKao />} />
             <Route path="/post" element={<PostApp />} />
             <Route path="/post/:no" element={<PostView />} />
-            <Route path="/span" element={<LinkingScreen />} />
             </Routes>
+            <EmergencyModal open={emergencyModalOpen} onClose={() => setEmergencyModalOpen(false)} />
           </main>
         </div>
       </ThemeProvider>

@@ -1,9 +1,9 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
-import { mockBarData as data } from "../data/mockData";
+import { MonthBarData as data } from "../data/mockData";
 
-const BarChart = ({ isDashboard = false }) => {
+const MonthBarChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -44,13 +44,13 @@ const BarChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      keys={["SafetyBells", "CCTV", "SecurityLight", "InformationSign"]}
+      keys={["Month"]}
       indexBy="country"
       margin={{ top: 10, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
-      colors={{ scheme: "set2" }}
+      colors={{ scheme: "category10" }}
       defs={[
         {
           id: "dots",
@@ -88,7 +88,6 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "합계", // changed
         legendPosition: "middle",
         legendOffset: -40,
       }}
@@ -131,4 +130,4 @@ const BarChart = ({ isDashboard = false }) => {
   );
 };
 
-export default BarChart;
+export default MonthBarChart;

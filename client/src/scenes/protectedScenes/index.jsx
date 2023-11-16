@@ -163,7 +163,7 @@ export default function ProtectedScenes() {
                         </Box>
             </div>
             <div className="protectedTopRight">
-            <Box m = "0px 20px 20px 20px" height="45vh" backgroundColor = {colors.primary[400]} sx={{ padding: "20px", fontSize: "19px"}}>
+            <Box m = "0px 20px 20px 20px" height="45vh" backgroundColor = {colors.primary[400]} sx={{ padding: "20px", fontSize: "19px", color: colors.grey[100]}}>
             {data && (
                 <div>
                     <h2>{data.items.length > 0 ? data.items[0].SIDO_NM : ''}</h2>
@@ -181,7 +181,7 @@ export default function ProtectedScenes() {
             
             </div>
         </div>
-        <Box className='protectedBottom' sx={{marginTop: "6px"}} style={leftStyle}>
+        <Box className='protectedBottom' sx={{marginTop: "6px", color: colors.grey[100]}} style={leftStyle}>
         <span className='protectedName' style={greenStyle}>#. 시도코드</span>
                     
             <div className='protectedBottomLeft' style={lightStyle}>

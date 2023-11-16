@@ -61,7 +61,7 @@ const SafeReturnRoad = (props) => {
     }
   };
 
-  // Calculate sums for each category
+  // 각 범주의 합계를 계산합니다.
   const sums = {
     safety_bells_sum: data.reduce((sum, row) => sum + row.safety_bells_cnt, 0),
     cctv_sum: data.reduce((sum, row) => sum + row.cctv_cnt, 0),
@@ -135,14 +135,14 @@ const SafeReturnRoad = (props) => {
                     </Box>
         </div>
         <div className="protectedTopRight">
-        <Box m="0px 20px 20px 20px" height="30vh" sx={{ marginTop: '29px', textAlign: "center"}}>
+        <Box m="0px 20px 20px 20px" height="30vh" sx={{ marginTop: '29px', textAlign: "center", color: colors.grey[100]}}>
           <h2> [ 방범 시스템 개수가 0인 경우 합계 ]</h2>
         <Box height="27vh">
                 <BarChart/>
 
             </Box>
           </Box>
-        <Box m = "0px 20px 20px 20px" height="40vh" backgroundColor = {colors.primary[400]} sx={{textAlign: "center", padding: "5px"}}>
+        <Box m = "0px 20px 20px 20px" height="40vh" backgroundColor = {colors.primary[400]} sx={{textAlign: "center", padding: "3px", color: colors.grey[100]}}>
         <h2> [ 방범 시스템 종류별 합계 ]</h2>
             <Box height="37vh">
                 <PieChart/>

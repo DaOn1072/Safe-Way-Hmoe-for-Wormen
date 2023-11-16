@@ -8,7 +8,7 @@ const CommonTableColumn = ({ children }) => {
 
   return (
     <td className="common-table-column">
-      <Box sx={{ width: "100%", backgroundColor: colors.primary[500] }}>
+      <Box sx={{ width: "100%"}}>
         <div className='columnPost'>
           {children}
         </div>

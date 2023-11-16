@@ -10,10 +10,10 @@ const CommonTable = props => {
 
   return (
     <div className='table-post'>
-      <Box m="0px 20px 20px 20px" height="30vh" sx={{}}>
-        <Box height="40vh" sx={{
+      <Box m="0px 20px 20px 20px" height="50vh" sx={{}}>
+        <Box height="50vh" sx={{
           textAlign: "center",
-          fontSize: "28px",
+          fontSize: "24px",
           borderSpacing: "0",
           backgroundColor: colors.primary[400],
         }}>
@@ -25,10 +25,11 @@ const CommonTable = props => {
                     className="common-table-header-column"
                     key={index}
                     style={{
-                      backgroundColor: colors.primary[200],
-                      borderBottom: '1px solid #e8e8e8',
-                      padding: '10px 5px',
-                      fontSize: '28px',
+                      backgroundColor: colors.blueAccent[700],
+                      color: colors.grey[100],
+                      borderBottom: '0.2px solid #e6e6e6',
+                      padding: '5px',
+                      fontSize: '22px',
                       fontWeight: 'bold',
                     }}
                   >

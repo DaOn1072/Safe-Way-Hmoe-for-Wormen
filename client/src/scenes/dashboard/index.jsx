@@ -19,7 +19,9 @@ import React, { useState, useEffect } from 'react';
 // import Cctv from "../ccTVViewer/index";
 import api_key from "../../api_key.json";
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
-import PieChart from "../../components/PieChart";
+import WeekChart from "../../components/WeekChart";
+
+
 
 const Dashboard = () => {
 
@@ -28,7 +30,6 @@ const Dashboard = () => {
   const colors = tokens(theme.palette.mode);
   const cctvStreamURL = `/view/map/openDataCctvStream.jsp?key=${API_key_CCTV}&cctvid=L010233&cctvName=%25EC%2599%2595%25EC%258B%25AD%25EB%25A6%25AC%25EC%2597%25AD%25EC%2598%25A4%25EA%25B1%25B0%25EB%25A6%25AC&kind=Seoul&cctvip=null&cctvch=52&id=179&cctvpasswd=null&cctvport=null`;
 
-  
 
 
 
@@ -160,7 +161,7 @@ const Dashboard = () => {
               />
             </Box> */}
 
-            {/* ROW 2 */}
+            {/* ROW 2 */}                
             <Box
           gridColumn="span 7"
           gridRow="span 3"
@@ -219,7 +220,7 @@ const Dashboard = () => {
                     fontWeight="600"
                     backgroundColor={colors.primary[400]}
                   >
-                    서울특별시_송파구_여성_안심귀갓길(2023.01.17)
+                    서울특별시_송파구_여성_안심귀갓길
                   </Typography>
                 </Box>
                 {mockTransactions.map((transaction, i) => (
@@ -266,7 +267,7 @@ const Dashboard = () => {
             alignItems="center"
             mt="5px"
           >
-       <Typography>오전 7:00 맑음 <WbSunnyOutlinedIcon /> <br />강수(설)량: 0mm<br /><span>도로위험 상황예보(없음)</span></Typography>
+       <Typography> 15:07 맑음 <WbSunnyOutlinedIcon /> <br />강수(설)량: 0mm<br /><span>도로위험 상황예보(없음)</span></Typography>
           </Box>
           </Box>
           <Box
@@ -340,10 +341,10 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ marginBottom: "15px" }}
           >
-            방범 시스템 합계
+            전 주 대비 신고량 통계
           </Typography>
-          <Box height="270px" mt="10px">
-            <PieChart isDashboard={true} />
+          <Box height="210px" mt="1px">
+            <WeekChart isDashboard={true} />
           </Box>
         </Box>
         
