@@ -28,9 +28,6 @@ const Dashboard = () => {
   const API_key_CCTV = api_key.API_KEY_CCTV;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const cctvStreamURL = `/view/map/openDataCctvStream.jsp?key=${API_key_CCTV}&cctvid=L010233&cctvName=%25EC%2599%2595%25EC%258B%25AD%25EB%25A6%25AC%25EC%2597%25AD%25EC%2598%25A4%25EA%25B1%25B0%25EB%25A6%25AC&kind=Seoul&cctvip=null&cctvch=52&id=179&cctvpasswd=null&cctvport=null`;
-
-
 
 
   const columns = [

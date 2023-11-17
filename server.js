@@ -4,12 +4,20 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 5000;
 
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
+
+app.use((req, res, next) => {
+    res.setHeader('Content-Security-Policy', "default-src 'self'; connect-src 'self' https://api.openweathermap.org");
+    next();
+});
 
 const data = fs.readFileSync('./database.json');
 const conf = JSON.parse(data);
 const mysql = require('mysql');
+
 
 
 // 연결과 관련된 변수 설정(데이터베이스 설정)
