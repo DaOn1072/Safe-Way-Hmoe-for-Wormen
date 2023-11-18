@@ -64,6 +64,16 @@ app.get('/api/safehouse', (req, res) => {
     );
 });
 
+// CCTV DB TABLE
+app.get('/api/cctv', (req, res) => {
+    connection.query(
+        "SELECT * FROM CCTVINFO",
+        (err, rows, fields) => {
+            res.send(rows);
+        }
+    );
+});
+
 
 app.use('/image', express.static('./upload'));
 

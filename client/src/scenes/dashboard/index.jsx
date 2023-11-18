@@ -20,14 +20,17 @@ import React, { useState, useEffect } from 'react';
 import api_key from "../../api_key.json";
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 import WeekChart from "../../components/WeekChart";
+import WeatherT from "./Weather";
 
 
 
 const Dashboard = () => {
 
+  
   const API_key_CCTV = api_key.API_KEY_CCTV;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [weather, setWeather] = useState(null);
 
 
   const columns = [
@@ -158,42 +161,14 @@ const Dashboard = () => {
               />
             </Box> */}
 
-            {/* ROW 2 */}                
+            {/* ROW 2 */}       
+      
             <Box
           gridColumn="span 7"
           gridRow="span 3"
           backgroundColor={colors.primary[400]}
-          sx={{
-            // customers 표 꾸미기
-            "& .MuiDataGrid-root": {
-              border: "none",
-              borderRadius: "5rem",
-            },
-            "& .MuiDataGrid-cell": {
-              borderBottom: "none",
-              color: colors.greenAccent[300],
-            },
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: colors.blueAccent[800],
-              borderBottom: "none",
-            },
-            "& .MuiDataGrid-virtualScroller": {
-              backgroundColor: colors.primary[400],
-            },
-            "& .MuiDataGrid-footerContainer": {
-              borderTop: "none",
-              backgroundColor: colors.blueAccent[800],
-            },
-            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-              color: `${colors.grey[100]} !important`,
-            },
-          }}
-        >
-          <DataGrid
-          rows={data}
-          columns={columns}
-        ></DataGrid>
-          
+          sx={{ }}>
+          <WeatherT weather={weather} setWeather={setWeather} />
         </Box>
 
               {/* TRANSACTIONS */}
@@ -255,6 +230,7 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           p="30px"
         >
+          
           <Typography variant="h5" fontWeight="600" color={colors.grey[100]}>
             지역: 서울
           </Typography>
@@ -307,7 +283,7 @@ const Dashboard = () => {
             alignItems="center"
             mt="25px"
           >
-            <img src={`../../assets/cctv.png`} alt="CCTV Image" width="360" height="210" />
+            
           </Box>
         </Box>
         <Box

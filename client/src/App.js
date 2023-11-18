@@ -27,8 +27,6 @@ import MapKaKao from "./scenes/mapKakao";
 import PostApp from "./PostApp";
 import PostView from "./page/post/PostView";
 import EmergencyModal from "./scenes/modal";
-import WeatherButton from "./scenes/weather/WeatherButton";
-import WeatherParent from "./scenes/weather/WeatherParent";
 
 
 
@@ -82,8 +80,7 @@ function App() {
             <Route path="/mapkakao" element={<MapKaKao />} />
             <Route path="/post" element={<PostApp />} />
             <Route path="/post/:no" element={<PostView />} />
-            <Route path="/weather" element={<WeatherParent />} />
-            <Route path="/button" element={<WeatherButton />} />
+
             </Routes>
             <EmergencyModal open={emergencyModalOpen} onClose={() => setEmergencyModalOpen(false)} />
           </main>
