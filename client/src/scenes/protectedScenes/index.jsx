@@ -143,6 +143,8 @@ export default function ProtectedScenes() {
                             "& .MuiDataGrid-columnHeaders": {
                                 backgroundColor: colors.blueAccent[700],
                                 borderBottom: "none",
+                                fontSize: "16px",
+                                fontWeight: "bold"
                             },
                             "& .MuiDataGrid-footerContainer": {
                                 borderTop: "none",

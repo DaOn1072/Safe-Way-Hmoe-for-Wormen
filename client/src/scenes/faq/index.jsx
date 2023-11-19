@@ -22,53 +22,90 @@ const EmergencyLocation = () => {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const targetLatitude = 37.561057;
-  const targetLongitude = 127.047944;
 
   const [data, setData] = useState([]);
   const [closestRoad, setClosestRoad] = useState(null);
   const [isAccordionOpen, setIsAccordionOpen] = useState(true);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
+  const [apiLatitude, setApiLatitude] = useState(null);
+  const [apiLongitude, setApiLongitude] = useState(null);
+  const [reportData, setReportData] = useState([]);
+  const [customerData, setCustomerData] = useState([]);
+  const [closestRoads, setClosestRoads] = useState([]);
+
+
   useEffect(() => {
     // Fetch data from your API endpoint
-    fetch('/api/safehouse')
+    fetch('/api/customers')
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));
   }, []);
 
+
+
   useEffect(() => {
-    // Find the closest road when data changes
-    if (data.length > 0) {
-      const closestLocation = findClosestLocation(targetLatitude, targetLongitude, data);
-      setClosestRoad(closestLocation);
-    }
-  }, [data, targetLatitude, targetLongitude]);
+    // Fetch data from api/report
+    fetch('/api/report')
+      .then((response) => response.json())
+      .then((data) => {
+        // Check if the received data structure matches your expectation
+        console.log('API report 데이터:', data);
+  
+        // Assuming 'lat' and 'har' are keys directly in each object within 'data'
+        const latitude = data.map(item => item.lat);
+        const longitude = data.map(item => item.har);
+  
+        // Ensure that lat and har are retrieved correctly
+        console.log('Latitude:', latitude);
+        console.log('Longitude:', longitude);
+  
+        // Set apiLatitude and apiLongitude with the fetched values
+        // For example, if you want the first set of lat and har
+        setApiLatitude(latitude[0]);
+        setApiLongitude(longitude[0]);
+  
+        // Assuming 'data' contains an array of report information
+        setReportData(data); // This should set reportData as an array
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
-  const findClosestLocation = (targetLat, targetLon, locations) => {
+
+  const findClosestLocation = (targetLat, targetLon, customersData) => {
     let closestLocation = null;
-    let minDiff = Number.MAX_VALUE;
-
-    locations.forEach(location => {
-      const lat = parseFloat(location.latitude);
-      const lon = parseFloat(location.hardness);
-
-      // 대상과 현재 위도/경도 간의 절대 차이를 계산합니다.
-      const latDiff = Math.abs(lat - targetLat);
-      const lonDiff = Math.abs(lon - targetLon);
-
-      const totalDiff = latDiff + lonDiff;
-      // 현재 위치가 더 가까우면 가장 가까운 위치를 업데이트하세요.
-      if (totalDiff < minDiff) {
-        minDiff = totalDiff;
-        closestLocation = location;
+    let minDistance = Number.MAX_VALUE;
+  
+    customersData.forEach(customer => {
+      const lat = parseFloat(customer.latitude);
+      const lon = parseFloat(customer.hardness);
+  
+      if (!isNaN(lat) && !isNaN(lon)) {
+        const latDiff = lat - targetLat;
+        const lonDiff = lon - targetLon;
+        const distance = Math.sqrt(latDiff * latDiff + lonDiff * lonDiff);
+  
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestLocation = customer;
+        }
       }
     });
-
+  
     return closestLocation;
   };
-
+  
+  useEffect(() => {
+    if (data.length > 0 && reportData.length > 0 && apiLatitude !== null && apiLongitude !== null) {
+      const closestLocations = reportData.map(report => {
+        const closestLocation = findClosestLocation(report.lat, report.har, data);
+        return closestLocation;
+      });
+      setClosestRoads(closestLocations);
+      console.log('가장 가까운 위치들:', closestLocations);
+    }
+  }, [data, reportData, apiLatitude, apiLongitude]);
   const handleConfirmation = () => {
     setIsConfirmationModalOpen(true);
   };
@@ -78,30 +115,34 @@ const EmergencyLocation = () => {
   };
 
   const handleConfirmationSubmit = () => {
-    // 여기에 확인 버튼을 눌렀을 때의 로직 추가
+    // Add logic when confirmation button is clicked
     alert('신고를 확인했습니다.');
     setIsConfirmationModalOpen(false);
   };
 
+
+
+
   return (
     <Box m="20px">
       <Header title="신고 확인 페이지" subtitle="금일 위급상황이 발생된 위치와 날짜 데이터를 제공합니다. 해당 데이터에 대해 가장 가까운 파출소에 신고할 수 있습니다." />
-      <Accordion
-        defaultExpanded={isAccordionOpen}  // 여기서 isAccordionOpen을 사용하도록 수정
-        onChange={() => setIsAccordionOpen(!isAccordionOpen)}
-      >
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Box display="flex" justifyContent="space-between" sx={{ width: "100%"}}>
-            <Typography color={colors.greenAccent[500]} variant="h3" padding="10px" fontWeight="bold" >
-              {`2023-11-14 15:07:23 위급상황 발생 ${targetLatitude}, ${targetLongitude}`}
-            </Typography>
-          </Box>
-        </AccordionSummary>
-        <AccordionDetails>
+      
+      {/* 여러 위급 상황 블록 생성 */}
+      {reportData.map((emergency, index) => (
+        
+        <Accordion key={index} defaultExpanded={isAccordionOpen}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Box display="flex" justifyContent="space-between" sx={{ width: "100%" }}>
+              <Typography color={colors.greenAccent[500]} variant="h3" padding="10px" fontWeight="bold">
+                {`${emergency.dateInfo} 위급상황 발생 ${emergency.lat}, ${emergency.har}`}
+              </Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails>
           <Box display="flex" justifyContent="space-between">
-            <Typography fontSize="20px" padding="10px" sx={{color: colors.grey[100]}}>
-              {`근처 도로: ${closestRoad?.map_name_address} | 가장 가까운 경찰서: ${closestRoad?.police_signature}`}
-            </Typography>
+              <Typography fontSize="20px" padding="10px" sx={{color: colors.grey[100]}}>
+                {`근처 도로: ${closestRoads[index]?.address || '데이터 없음'} | 가장 가까운 경찰서: ${closestRoads[index]?.police_office || '데이터 없음'}`}
+              </Typography>
             <Box>
               <Button 
                 sx={{ backgroundColor: colors.greenAccent[500], color: 'black', margin: "0px 5px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }}
@@ -129,84 +170,8 @@ const EmergencyLocation = () => {
           </Box>
         </AccordionDetails>
       </Accordion>
-      <Accordion
-          defaultExpanded={false}  // 초기에 닫힌 상태로 시작하도록 설정
-          onChange={() => setIsAccordionOpen(!isAccordionOpen)}
-        >
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Box display="flex" justifyContent="space-between" sx={{ width: "100%"}}>
-            
-          <Typography color={colors.greenAccent[500]} variant="h3" padding="10px" fontWeight="bold" >
-            2023-11-14 14:28:53 위급상황 발생 37.559337, 127.040945
+      ))}
 
-          </Typography>
-        </Box>
-        </AccordionSummary>
-        <AccordionDetails>
-        <Box display="flex" justifyContent="space-between">
-          <Typography fontSize="20px" padding="10px" sx={{color: colors.grey[100]}}>
-            근처 도로: 서울특별시 성동구 마조로5길 8 | 가장 가까운 경찰서: 성동경찰서
-          </Typography>
-          <Box>
-            <Button 
-            sx={{ backgroundColor: colors.greenAccent[500], color: 'black', margin: "0px 5px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }}
-            variant="contained" onClick={() => window.open('https://minwon.police.go.kr/', '_blank')}>
-                웹페이지 열기
-            </Button>
-            <Button
-            sx={{ backgroundColor: colors.greenAccent[500], color: 'black', margin: "0px 5px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }} 
-            variant="contained" onClick={handlePhoneClick}>
-                전화 걸기
-            </Button>
-            <Button 
-            sx={{ backgroundColor: colors.greenAccent[500], color: 'black', margin: "0px 5px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }}
-            variant="contained" onClick={handleEmailClick}>
-                이메일 보내기
-            </Button>
-            <Button
-            variant="contained"
-            sx={{ backgroundColor: colors.redAccent[500], color: colors.grey[100], margin: "10px 50px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }}
-            onClick={handleConfirmation}
-            >
-            신고 확인
-            </Button>
-        </Box>
-
-        </Box>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-          defaultExpanded={false}  // 초기에 닫힌 상태로 시작하도록 설정
-          onChange={() => setIsAccordionOpen(!isAccordionOpen)}
-        >
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography color={colors.greenAccent[500]} variant="h3" padding="10px" fontWeight="bold" >
-            2023-11-14 13:49:17 위급상황 발생 37.560370, 127.036091
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography sx={{color: colors.grey[100]}}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-              malesuada lacus ex, sit amet blandit leo lobortis eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          defaultExpanded={false}  // 초기에 닫힌 상태로 시작하도록 설정
-          onChange={() => setIsAccordionOpen(!isAccordionOpen)}
-        >
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography color={colors.greenAccent[500]} variant="h3" padding="10px" fontWeight="bold" >
-            2023-11-14 13:02:03 위급상황 발생 37.562530, 127.036123
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography sx={{color: colors.grey[100]}}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-              malesuada lacus ex, sit amet blandit leo lobortis eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
       <Dialog open={isConfirmationModalOpen} onClose={handleConfirmationClose} sx={{fontSize: "16px",color: colors.grey[100]}}>
         <DialogTitle sx={{fontSize: "28px"}}>위급상황 확인</DialogTitle>
         <DialogContent>
@@ -215,7 +180,6 @@ const EmergencyLocation = () => {
         <DialogActions>
           <Button onClick={handleConfirmationSubmit} sx={{background: "white", fontWeight: "bold", fontSize: "16px"}}>확인</Button>
           <Button onClick={handleConfirmationClose} sx={{background: "grey", fontWeight: "bold", fontSize: "16px"}}>취소</Button>
-
         </DialogActions>
       </Dialog>
     </Box>

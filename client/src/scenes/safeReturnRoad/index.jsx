@@ -20,7 +20,7 @@ const SafeReturnRoad = (props) => {
   const colors = tokens(theme.palette.mode);
 
   const columns = [
-    { field: "city_county_district", headerName: "시군구", flex: 2 },
+    { field: "city_county_district", headerName: "시군구", flex: 1.5 },
     { field: "eup_dong_myeong", headerName: "읍면동명" },
     { field: "safety_bells_cnt", headerName: "안심벨 수", flex: 1, headerAlign: "center", align: "center", cellClassName: "name-column-cell" },
     { field: "cctv_cnt", headerName: "CCTV 수", headerAlign: "center", align: "center" },
@@ -105,6 +105,8 @@ const SafeReturnRoad = (props) => {
               "& .MuiDataGrid-columnHeader": {
                 backgroundColor: colors.blueAccent[700],
                 borderBottom: "none",
+                fontSize: "16px",
+                fontWeight: "bold"
               },
               "& .MuiDataGrid-virtualScroller": {
                 backgroundColor: colors.primary[400],
@@ -135,10 +137,10 @@ const SafeReturnRoad = (props) => {
                     </Box>
         </div>
         <div className="protectedTopRight">
-        <Box m="0px 20px 20px 20px" height="30vh" sx={{ marginTop: '29px', textAlign: "center", color: colors.grey[100]}}>
+        <Box m="0px 20px 20px 20px" height="30vh" sx={{ marginTop: '29px', marginRight: "20px", textAlign: "center", color: colors.grey[100]}}>
           <h2> [ 방범 시스템 개수가 0인 경우 합계 ]</h2>
         <Box height="27vh">
-                <BarChart/>
+                <BarChart />
 
             </Box>
           </Box>

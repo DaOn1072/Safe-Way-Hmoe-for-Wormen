@@ -36,12 +36,13 @@ const ProtectedAreaAPI = ({ onDataReceived }) => {
     }
 
     return (
-        <div className='ProtectedAreaAPI'>
+        <div className='ProtectedAreaAPI' >
             <input
                 type="text"
                 placeholder='시도코드를 입력하시오'
                 value={city_code}
                 onChange={hInputChange}
+                style={{margin: "3px", padding: "5px"}}
             />
             <button onClick={fetchWeatherData}>정보 확인</button>
 

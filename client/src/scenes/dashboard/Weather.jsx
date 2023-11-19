@@ -50,6 +50,7 @@ function WeatherT({ weather, setWeather }) {
             setIcon(weather.weather[0].icon);
         }
     }, [weather]);
+    
 // 현재 위치의 날씨 정보
 const getWeatherByCurrentLocation = async (lat, lon) => {
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${API_KEY}&units=metric`;
@@ -168,18 +169,23 @@ const setCity = (selectedCity) => {
             </h2>
           </div>
           <div style={{ margin: "50px", marginLeft: "0px", flex: "1 1 300px" }}>
-          {selectedCityCCTVData && (
-    <iframe
-      title="External Video"
-      src={getIframeURL()} // Use the function to get the URL dynamically
-      width="100%" 
-      height="300"
-      style={{ maxWidth: "800px" }} 
-    />
+  {selectedCityCCTVData && (
+    <div>
+      <iframe
+        title="External Video"
+        src={getIframeURL()} // Use the function to get the URL dynamically
+        width="100%" 
+        height="300"
+        style={{ maxWidth: "800px" }} 
+      />
+      <div>
+        <p style={{ textAlign: "center", color: colors.greenAccent[500]}}>*실제 상황과 최대 60초 정도 차이날 수 있습니다. 경찰청(UTIC)제공</p>
+      </div>
+    </div>
   )}
-      <p style={{ textAlign: "center", color: colors.greenAccent[500]}}>*실제 상황과 최대 60초 정도 차이날 수 있습니다. 경찰청(UTIC)제공</p>
+</div>
+      
           </div>
-        </div>
         )}
       </div>
     );

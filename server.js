@@ -37,7 +37,7 @@ const upload = multer({dest: './upload'})
 // 관서 목록을 보여주는 api 제작
 app.get('/api/customers', (req, res) => {
     connection.query(
-        "SELECT * FROM POLICEOFFICE WHERE isDeleted = 0",
+        "SELECT * FROM POLICEINFO WHERE isDeleted = 0",
         (err, rows, fields) => {
             res.send(rows);
         }
@@ -74,17 +74,31 @@ app.get('/api/cctv', (req, res) => {
     );
 });
 
+// 신고 DB TABLE
+app.get('/api/report', (req, res) => {
+    connection.query(
+        "SELECT * FROM REPORT",
+        (err, rows, fields) => {
+            res.send(rows);
+        }
+    );
+});
+
+
 
 app.use('/image', express.static('./upload'));
 
 app.post('/api/customers', upload.single('image'), (req, res) => {
-    let sql = "INSERT INTO POLICEOFFICE VALUES (null, ?, ?, ?, ?, ?, now(), 0)";
+    let sql = "INSERT INTO POLICEINFO VALUES (null, ?, ?, ?, ?, ?, ?, now(), 0)";
     let police_office = req.body.police_office;
-    let name = req.body.name;
-    let division = req.body.division;
-    let phone_number = req.body.phone_number;
     let address = req.body.address;
-    let params = [police_office, name, division, phone_number, address];
+    let phone_number = req.body.phone_number;
+    let latitude = req.body.latitude;
+    let hardness = req.body.hardness;
+    let mail = req.body.mail;
+
+
+    let params = [police_office, address, phone_number, latitude, hardness, mail];
     connection.query(sql, params,
         (err, rows, fields) => {
             res.send(rows);
@@ -92,7 +106,7 @@ app.post('/api/customers', upload.single('image'), (req, res) => {
 });
 
 app.delete('/api/customers/:id', (req, res) => {
-    let sql = "DELETE FROM POLICEOFFICE WHERE id = ?";
+    let sql = "DELETE FROM POLICEINFO WHERE id = ?";
     let params = [req.params.id];
     connection.query(sql, params, (err, rows, fields) => {
         if (!err) {
