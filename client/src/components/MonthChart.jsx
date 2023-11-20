@@ -1,15 +1,77 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
-import { MonthBarData as data } from "../data/mockData";
+import React, { useState, useEffect } from 'react';
 
-const MonthBarChart = ({ isDashboard = false }) => {
+
+const MonthChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [MonthData, setMonthData] = useState([]);
 
+  useEffect(() => {
+    // API에서 데이터 가져오기
+    fetch('/api/report')
+      .then((response) => response.json())
+      .then((data) => {
+        // API 응답에 따라 데이터 가공
+        const processedData = processDataFromAPI(data); // 실제 API에서 받은 데이터를 가공하는 함수
+
+        setMonthData(processedData); // 가공된 데이터를 state에 설정
+      })
+      .catch((error) => console.error(error));
+
+      const processDataFromAPI = (data) => {
+        const monthlyData = {}; // 월별 신고량을 저장할 객체 생성
+      
+  // 데이터를 순회하면서 월 정보 추출 및 신고량 카운팅
+  data.forEach((item) => {
+    const dateInfo = new Date(item.dateInfo);
+    const year = dateInfo.getFullYear();
+    const month = (dateInfo.getMonth() + 1).toString().padStart(2, '0');
+    const monthKey = `${year}-${month}`; // 년-월 형태의 키 생성
+
+    // 해당 년-월의 데이터가 없으면 초기화하고, 있으면 카운트 증가
+    if (!monthlyData[monthKey]) {
+      monthlyData[monthKey] = 1;
+    } else {
+      monthlyData[monthKey]++;
+    }
+  });
+
+  // 빈 데이터 생성 및 채우기
+  for (let i = 0; i < 12; i++) {
+    const year = new Date().getFullYear();
+    const month = (i + 1).toString().padStart(2, '0');
+    const monthKey = `${year}-${month}`;
+
+    // 데이터가 없는 경우 0으로 초기화
+    if (!monthlyData[monthKey]) {
+      monthlyData[monthKey] = 0;
+    }
+  }
+
+  // 월별 신고량 데이터 구조에 맞게 변환
+  const processedData = Object.keys(monthlyData)
+  .map((monthKey) => ({
+    country: monthKey, // 년-월 형태로 설정
+    Month: monthlyData[monthKey], // 해당 월의 신고량
+    MonthColor: "hsl(296, 70%, 50%)", // 색상 설정
+  }))
+  .sort((a, b) => {
+    const [aYear, aMonth] = a.country.split('-');
+    const [bYear, bMonth] = b.country.split('-');
+    return new Date(`${aYear}-${aMonth}`) - new Date(`${bYear}-${bMonth}`);
+  });
+
+  return processedData;
+      };
+    }, []);
+
+  
   return (
     <ResponsiveBar
-      data={data}
+    data={MonthData}
       theme={{
         // added
         axis: {
@@ -130,4 +192,4 @@ const MonthBarChart = ({ isDashboard = false }) => {
   );
 };
 
-export default MonthBarChart;
+export default MonthChart;

@@ -28,12 +28,12 @@ import PostApp from "./PostApp";
 import PostView from "./page/post/PostView";
 import EmergencyModal from "./scenes/modal";
 
-
-
 function App() {
   const [theme, colorMode] = useMode();
 
   const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
+
+
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -41,6 +41,7 @@ function App() {
         setEmergencyModalOpen(true);
       }
     };
+    
 
     window.addEventListener('keydown', handleKeyDown);
 
@@ -80,9 +81,11 @@ function App() {
             <Route path="/mapkakao" element={<MapKaKao />} />
             <Route path="/post" element={<PostApp />} />
             <Route path="/post/:no" element={<PostView />} />
+            
 
             </Routes>
             <EmergencyModal open={emergencyModalOpen} onClose={() => setEmergencyModalOpen(false)} />
+
           </main>
         </div>
       </ThemeProvider>

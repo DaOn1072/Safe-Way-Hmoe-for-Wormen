@@ -1,15 +1,69 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
-import { hourlyBarData as data } from "../data/mockData";
+import React, { useState, useEffect } from 'react';
+
 
 const HourlyChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [hourlyData, setHourlyData] = useState([]);
 
+  useEffect(() => {
+    // API에서 데이터 가져오기
+    fetch('/api/report')
+      .then((response) => response.json())
+      .then((data) => {
+        // API 응답에 따라 데이터 가공
+        const processedData = processDataFromAPI(data); // 실제 API에서 받은 데이터를 가공하는 함수
+
+        setHourlyData(processedData); // 가공된 데이터를 state에 설정
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  const processDataFromAPI = (data) => {
+    // 시간대별 신고량을 저장할 객체 생성
+    const hourlyData = {};
+
+    // 현재 날짜를 가져오기 위해 Date 객체 사용
+    const currentDate = new Date();
+
+    // API에서 받아온 데이터를 순회하면서 시간 정보 추출 및 신고량 카운팅
+    data.forEach((item) => {
+      const dateInfo = new Date(item.dateInfo);
+
+      // 현재 날짜와 동일한 날짜의 데이터만 처리
+      if (
+        dateInfo.getDate() === currentDate.getDate() &&
+        dateInfo.getMonth() === currentDate.getMonth() &&
+        dateInfo.getFullYear() === currentDate.getFullYear()
+      ) {
+        const hour = dateInfo.getHours(); // 시간 정보 추출
+
+        // 시간대별로 신고량 카운팅
+        if (!hourlyData[hour]) {
+          hourlyData[hour] = 1; // 해당 시간대의 데이터가 없으면 초기화
+        } else {
+          hourlyData[hour]++; // 해당 시간대의 데이터가 있으면 카운트 증가
+        }
+      }
+    });
+
+    // 시간대별 신고량 데이터 구조에 맞게 변환
+    const processedData = Array.from({ length: 24 }).map((_, hour) => ({
+      country: `${hour.toString().padStart(2, '0')}:00`, // 시간대 설정
+      Today: hourlyData[hour] || 0, // 해당 시간대의 신고량 또는 0
+      TodayColor: "hsl(296, 70%, 50%)", // 색상 설정
+    }));
+
+    return processedData;
+  };
+
+  
   return (
     <ResponsiveBar
-      data={data}
+    data={hourlyData}
       theme={{
         // added
         axis: {

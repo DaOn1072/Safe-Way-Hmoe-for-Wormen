@@ -118,3 +118,17 @@ app.delete('/api/customers/:id', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+
+// 신고 확인 체크
+app.put('/api/report/:id', (req, res) => {
+    let sql = "UPDATE REPORT SET checkYN = 'Y' WHERE id = ?";
+    let params = [req.params.id];
+    connection.query(sql, params, (err, rows, fields) => {
+        if (!err) {
+            res.status(200).send('Report updated successfully');
+        } else {
+            res.status(500).send('Failed to update report');
+        }
+    });
+});

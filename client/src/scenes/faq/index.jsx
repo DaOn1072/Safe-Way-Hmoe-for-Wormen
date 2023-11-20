@@ -6,41 +6,58 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { tokens } from "../../theme";
+import { ClipLoader } from 'react-spinners';
 
 const EmergencyLocation = () => {
-  const phoneNumber = '01079131645';
-  const email = 'zxcv17653@gmail.com';
-  const fixedMessage = '2023-11-14 15:07:23 \n서울특별시 성동구 사근동 10길 16 도로에서 위급상황이 인식 되었습니다. \n성동경찰서에 주변 순찰을 요청합니다.';
+  const [closestRoads, setClosestRoads] = useState([]);
+  const [closestRoadsData, setClosestRoadsData] = useState([]); 
 
-  const handlePhoneClick = () => {
-      window.open(`tel:${phoneNumber}`);
+  // ... existing useEffect block to fetch and process data
+
+  useEffect(() => {
+    setClosestRoads(closestRoadsData); // Set the retrieved closestRoadsData
+  }, [closestRoadsData]);
+
+  const handlePhoneClick = (closestRoad) => {
+    const phoneNumber = closestRoad.phone_number || 'No phone number';
+    window.open(`tel:${phoneNumber}`);
   };
-
-  const handleEmailClick = () => {
-      window.open(`mailto:${email}?subject=Subject&body=${encodeURIComponent(fixedMessage)}`)
+  
+  const handleEmailClick = (closestRoad) => {
+    const email = closestRoad.mail || 'No email';
+    const fixedMessage = `${dateInfo} \n${closestRoad.address}에서 위급상황이 인식 되었습니다. \n${closestRoad.police_office}에 주변 순찰을 요청합니다.`;
+    window.open(`mailto:${email}?subject=Subject&body=${encodeURIComponent(fixedMessage)}`)
   };
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const [data, setData] = useState([]);
-  const [closestRoad, setClosestRoad] = useState(null);
-  const [isAccordionOpen, setIsAccordionOpen] = useState(true);
+  const [isAccordionClose, setIsAccordionClose] = useState(false);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
   const [apiLatitude, setApiLatitude] = useState(null);
   const [apiLongitude, setApiLongitude] = useState(null);
   const [reportData, setReportData] = useState([]);
-  const [customerData, setCustomerData] = useState([]);
-  const [closestRoads, setClosestRoads] = useState([]);
+  const [dateInfo, setDateInfo] = useState("[관제 시스템 발송]");
+  const [selectedReportId, setSelectedReportId] = useState(null);
+
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
     // Fetch data from your API endpoint
     fetch('/api/customers')
       .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.error(error));
+      .then((data) => {
+        setData(data);
+        setLoading(false); // Set loading to false after data is fetched
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false); // Set loading to false in case of an error
+      });
   }, []);
 
 
@@ -106,84 +123,168 @@ const EmergencyLocation = () => {
       console.log('가장 가까운 위치들:', closestLocations);
     }
   }, [data, reportData, apiLatitude, apiLongitude]);
-  const handleConfirmation = () => {
-    setIsConfirmationModalOpen(true);
+
+
+
+  const handleConfirmation = (reportId) => {
+    setSelectedReportId(reportId); // Set the selected report ID
+    setIsConfirmationModalOpen(true); // Open the confirmation modal
   };
 
   const handleConfirmationClose = () => {
     setIsConfirmationModalOpen(false);
   };
 
-  const handleConfirmationSubmit = () => {
-    // Add logic when confirmation button is clicked
-    alert('신고를 확인했습니다.');
-    setIsConfirmationModalOpen(false);
+  const handleConfirmationSubmit = (reportId) => {
+    setIsRefreshing(true); // Show the loader before refreshing
+  
+    fetch(`/api/report/${reportId}`, {
+      method: 'PUT',
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          alert('신고를 확인했습니다.');
+          setIsConfirmationModalOpen(false);
+  
+          // Update the 'checkYN' value in the reportData
+          const updatedReportData = reportData.map(report => {
+            if (report.id === reportId) {
+              return { ...report, checkYN: 'Y' };
+            }
+            return report;
+          });
+  
+          setReportData(updatedReportData); // Update the reportData state
+  
+          // Set the refreshing state to false after a timeout
+          setTimeout(() => {
+            setIsRefreshing(false);
+          }, 2000); // Replace this with actual logic
+        } else {
+          throw new Error('Failed to update report');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsRefreshing(false); // Hide the loader in case of an error
+      });
   };
 
+  useEffect(() => {
+    // Fetch data from api/report
+    fetch('/api/report')
+      .then((response) => response.json())
+      .then((data) => {
+        // Assuming 'data' contains an array of report information
+        // Sort data based on dateInfo in descending order
+        data.sort((a, b) => new Date(b.dateInfo) - new Date(a.dateInfo));
+        setReportData(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
+  // 오늘 날짜를 구함
+  const today = new Date().toISOString().split('T')[0];
+
+  // 오늘 날짜의 모든 데이터가 'Y'인지 확인
+  const allReportsChecked = reportData
+    .filter((emergency) => emergency.dateInfo.startsWith(today))
+    .every((emergency) => emergency.checkYN === 'Y');
+
+  // 모든 데이터가 'Y'인 경우, '들어온 정보가 없습니다' 표시
+if (!loading && allReportsChecked) {
+  return (
+    <Box m="20px">
+      <Header title="신고 확인 페이지" subtitle="금일 위급상황이 발생된 위치와 날짜 데이터를 제공합니다. 해당 데이터에 대해 가장 가까운 파출소에 신고할 수 있습니다." />
+      <Typography variant="h3" textAlign="center" mt={5}>
+        들어온 신고 데이터가 없습니다.
+      </Typography>
+    </Box>
+  );
+}
+
+  let emergencyReports = null; // 필터링된 긴급 보고서를 담을 변수
+
+  // 로딩 중일 때 로딩 스피너를 표시, 아닐 때 보고서를 표시
+  if (!loading) {
+    // 오늘 날짜의 긴급 보고서 필터링 및 매핑
+    const todayEmergencyReports = reportData
+      .filter((emergency) => emergency.dateInfo.startsWith(today) && emergency.checkYN !== 'Y')
+      .map((emergency, index) => (
+        <Accordion key={index} defaultExpanded={isAccordionClose}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Box display="flex" justifyContent="space-between" sx={{ width: "100%" }}>
+                <Typography color={colors.greenAccent[500]} variant="h3" padding="10px" fontWeight="bold">
+                  {`${emergency.dateInfo} 위급상황 발생 ${emergency.lat}, ${emergency.har}`}
+                </Typography>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box display="flex" justifyContent="space-between">
+                <Typography fontSize="20px" padding="10px" sx={{color: colors.grey[100]}}>
+                  {`근처 도로: ${closestRoads[index]?.address || '데이터 없음'} | 가장 가까운 경찰서: ${closestRoads[index]?.police_office || '데이터 없음'}`}
+                </Typography>
+                <Box>
+                  {/* Button Components */}
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: colors.greenAccent[500], color: 'black', margin: "0px 5px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }} 
+                    onClick={() => handlePhoneClick(closestRoads[index])}>
+                    전화 걸기
+                  </Button>
+                  <Button 
+                    variant="contained"
+                    sx={{ backgroundColor: colors.greenAccent[500], color: 'black', margin: "0px 5px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }}
+                    onClick={() => handleEmailClick(closestRoads[index])}>
+                    메일 보내기
+                  </Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => handleConfirmation(emergency.id)}
+                    sx={{ backgroundColor: colors.redAccent[500], color: colors.grey[100], margin: "10px 35px", padding: "5px 20px", fontSize: "18px", fontWeight: "bold" }}
+                  >
+                    신고 확인
+                  </Button>
+                </Box>
+              </Box>
+            </AccordionDetails>
+        </Accordion>
+      ));
+
+    emergencyReports = todayEmergencyReports; // 변수에 할당
+  }
 
 
   return (
     <Box m="20px">
       <Header title="신고 확인 페이지" subtitle="금일 위급상황이 발생된 위치와 날짜 데이터를 제공합니다. 해당 데이터에 대해 가장 가까운 파출소에 신고할 수 있습니다." />
-      
-      {/* 여러 위급 상황 블록 생성 */}
-      {reportData.map((emergency, index) => (
-        
-        <Accordion key={index} defaultExpanded={isAccordionOpen}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Box display="flex" justifyContent="space-between" sx={{ width: "100%" }}>
-              <Typography color={colors.greenAccent[500]} variant="h3" padding="10px" fontWeight="bold">
-                {`${emergency.dateInfo} 위급상황 발생 ${emergency.lat}, ${emergency.har}`}
-              </Typography>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails>
-          <Box display="flex" justifyContent="space-between">
-              <Typography fontSize="20px" padding="10px" sx={{color: colors.grey[100]}}>
-                {`근처 도로: ${closestRoads[index]?.address || '데이터 없음'} | 가장 가까운 경찰서: ${closestRoads[index]?.police_office || '데이터 없음'}`}
-              </Typography>
-            <Box>
-              <Button 
-                sx={{ backgroundColor: colors.greenAccent[500], color: 'black', margin: "0px 5px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }}
-                variant="contained" onClick={() => window.open('https://minwon.police.go.kr/', '_blank')}>
-                웹페이지 열기
-              </Button>
-              <Button
-                sx={{ backgroundColor: colors.greenAccent[500], color: 'black', margin: "0px 5px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }} 
-                variant="contained" onClick={handlePhoneClick}>
-                전화 걸기
-              </Button>
-              <Button 
-                sx={{ backgroundColor: colors.greenAccent[500], color: 'black', margin: "0px 5px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }}
-                variant="contained" onClick={handleEmailClick}>
-                이메일 보내기
-              </Button>
-              <Button
-                variant="contained"
-                sx={{ backgroundColor: colors.redAccent[500], color: colors.grey[100], margin: "10px 50px", padding:"5px 20px", fontSize: "18px", fontWeight: "bold" }}
-                onClick={handleConfirmation}
-              >
-                신고 확인
-              </Button>
-            </Box>
-          </Box>
-        </AccordionDetails>
-      </Accordion>
-      ))}
+      <div style={{ maxHeight: '75vh', overflowY: 'auto' }}>
+      {loading ? (
+      <div className='container' style={{ margin: "150px" }}>
+        <ClipLoader 
+          color="aqua"
+          loading={loading}
+          size={150}
+        />
+      </div>
+    ) : (
+      emergencyReports // 필터링된 긴급 보고서 렌더링
+      )}
+    </div>
 
-      <Dialog open={isConfirmationModalOpen} onClose={handleConfirmationClose} sx={{fontSize: "16px",color: colors.grey[100]}}>
-        <DialogTitle sx={{fontSize: "28px"}}>위급상황 확인</DialogTitle>
+      <Dialog open={isConfirmationModalOpen} onClose={handleConfirmationClose} sx={{ fontSize: "16px", color: colors.grey[100] }}>
+        <DialogTitle sx={{ fontSize: "28px" }}>위급상황 확인</DialogTitle>
         <DialogContent>
-          <Typography sx={{fontSize: "20px"}}>해당 데이터를 신고 완료 하겠습니까?</Typography>
+          <Typography sx={{ fontSize: "20px" }}>해당 데이터를 신고 완료 하겠습니까?</Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleConfirmationSubmit} sx={{background: "white", fontWeight: "bold", fontSize: "16px"}}>확인</Button>
-          <Button onClick={handleConfirmationClose} sx={{background: "grey", fontWeight: "bold", fontSize: "16px"}}>취소</Button>
+          <Button onClick={() => handleConfirmationSubmit(selectedReportId)} sx={{ background: "white", fontWeight: "bold", fontSize: "16px" }}>확인</Button>
+          <Button onClick={handleConfirmationClose} sx={{ background: "grey", fontWeight: "bold", fontSize: "16px" }}>취소</Button>
         </DialogActions>
       </Dialog>
+
     </Box>
   );
 };
 
-export default EmergencyLocation;
+export default EmergencyLocation; 
