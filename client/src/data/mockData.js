@@ -487,7 +487,7 @@ export const mockBarData = [
     SafetyBellsColor: "hsl(296, 70%, 50%)",
   },
   {
-    country: "Today",
+    country: "CCTV",
     CCTV: 10,
     CCTVColor: "hsl(273, 70%, 50%)",
   },
@@ -503,197 +503,197 @@ export const mockBarData = [
   },
 ];
 
-export const hourlyBarData = [
-  {
-    country: "00:00",
-    Today: 0,
-    TodayColor: "hsl(296, 70%, 50%)",
-  },
-  {
-    country: "01:00",
-    Today: 0,
-    TodayColor: "hsl(273, 70%, 50%)",
-  },
-  {
-    country: "02:00",
-    Today: 0,
-    TodayColor: "hsl(72, 70%, 50%)",
-  },
-  {
-    country: "03:00",
-    Today: 0,
-    TodayColor: "hsl(9, 70%, 50%)",
-  },
-  {
-    country: "04:00",
-    Today: 0,
-    TodayColor: "hsl(296, 70%, 50%)",
-  },
-  {
-    country: "05:00",
-    Today: 0,
-    TodayColor: "hsl(273, 70%, 50%)",
-  },
-  {
-    country: "06:00",
-    Today: 0,
-    TodayColor: "hsl(72, 70%, 50%)",
-  },
-  {
-    country: "07:00",
-    Today: 0,
-    TodayColor: "hsl(9, 70%, 50%)",
-  },
-  {
-    country: "08:00",
-    Today: 0,
-    TodayColor: "hsl(296, 70%, 50%)",
-  },
-  {
-    country: "09:00",
-    Today: 0,
-    TodayColor: "hsl(273, 70%, 50%)",
-  },
-  {
-    country: "10:00",
-    Today: 0,
-    TodayColor: "hsl(72, 70%, 50%)",
-  },
-  {
-    country: "11:00",
-    Today: 0,
-    TodayColor: "hsl(9, 70%, 50%)",
-  },
-  {
-    country: "12:00",
-    Today: 0,
-    TodayColor: "hsl(296, 70%, 50%)",
-  },
-  {
-    country: "13:00",
-    Today: 2,
-    TodayColor: "hsl(273, 70%, 50%)",
-  },
-  {
-    country: "14:00",
-    Today: 1,
-    TodayColor: "hsl(72, 70%, 50%)",
-  },
-  {
-    country: "15:00",
-    Today: 1,
-    TodayColor: "hsl(9, 70%, 50%)",
-  },
-  {
-    country: "16:00",
-    Today: 0,
-    TodayColor: "hsl(296, 70%, 50%)",
-  },
-  {
-    country: "17:00",
-    Today: 0,
-    TodayColor: "hsl(273, 70%, 50%)",
-  },
-  {
-    country: "18:00",
-    Today: 0,
-    TodayColor: "hsl(72, 70%, 50%)",
-  },
-  {
-    country: "19:00",
-    Today: 0,
-    TodayColor: "hsl(9, 70%, 50%)",
-  },
-  {
-    country: "20:00",
-    Today: 0,
-    TodayColor: "hsl(296, 70%, 50%)",
-  },
-  {
-    country: "21:00",
-    Today: 0,
-    TodayColor: "hsl(273, 70%, 50%)",
-  },
-  {
-    country: "22:00",
-    Today: 0,
-    TodayColor: "hsl(72, 70%, 50%)",
-  },
-  {
-    country: "23:00",
-    Today: 0,
-    TodayColor: "hsl(9, 70%, 50%)",
-  },
-  {
-    country: "24:00",
-    Today: 0,
-    TodayColor: "hsl(296, 70%, 50%)",
-  },
-];
+// export const hourlyBarData = [
+//   {
+//     country: "00:00",
+//     Today: 0,
+//     TodayColor: "hsl(296, 70%, 50%)",
+//   },
+//   {
+//     country: "01:00",
+//     Today: 0,
+//     TodayColor: "hsl(273, 70%, 50%)",
+//   },
+//   {
+//     country: "02:00",
+//     Today: 0,
+//     TodayColor: "hsl(72, 70%, 50%)",
+//   },
+//   {
+//     country: "03:00",
+//     Today: 0,
+//     TodayColor: "hsl(9, 70%, 50%)",
+//   },
+//   {
+//     country: "04:00",
+//     Today: 0,
+//     TodayColor: "hsl(296, 70%, 50%)",
+//   },
+//   {
+//     country: "05:00",
+//     Today: 0,
+//     TodayColor: "hsl(273, 70%, 50%)",
+//   },
+//   {
+//     country: "06:00",
+//     Today: 0,
+//     TodayColor: "hsl(72, 70%, 50%)",
+//   },
+//   {
+//     country: "07:00",
+//     Today: 0,
+//     TodayColor: "hsl(9, 70%, 50%)",
+//   },
+//   {
+//     country: "08:00",
+//     Today: 0,
+//     TodayColor: "hsl(296, 70%, 50%)",
+//   },
+//   {
+//     country: "09:00",
+//     Today: 0,
+//     TodayColor: "hsl(273, 70%, 50%)",
+//   },
+//   {
+//     country: "10:00",
+//     Today: 0,
+//     TodayColor: "hsl(72, 70%, 50%)",
+//   },
+//   {
+//     country: "11:00",
+//     Today: 0,
+//     TodayColor: "hsl(9, 70%, 50%)",
+//   },
+//   {
+//     country: "12:00",
+//     Today: 0,
+//     TodayColor: "hsl(296, 70%, 50%)",
+//   },
+//   {
+//     country: "13:00",
+//     Today: 2,
+//     TodayColor: "hsl(273, 70%, 50%)",
+//   },
+//   {
+//     country: "14:00",
+//     Today: 1,
+//     TodayColor: "hsl(72, 70%, 50%)",
+//   },
+//   {
+//     country: "15:00",
+//     Today: 1,
+//     TodayColor: "hsl(9, 70%, 50%)",
+//   },
+//   {
+//     country: "16:00",
+//     Today: 0,
+//     TodayColor: "hsl(296, 70%, 50%)",
+//   },
+//   {
+//     country: "17:00",
+//     Today: 0,
+//     TodayColor: "hsl(273, 70%, 50%)",
+//   },
+//   {
+//     country: "18:00",
+//     Today: 0,
+//     TodayColor: "hsl(72, 70%, 50%)",
+//   },
+//   {
+//     country: "19:00",
+//     Today: 0,
+//     TodayColor: "hsl(9, 70%, 50%)",
+//   },
+//   {
+//     country: "20:00",
+//     Today: 0,
+//     TodayColor: "hsl(296, 70%, 50%)",
+//   },
+//   {
+//     country: "21:00",
+//     Today: 0,
+//     TodayColor: "hsl(273, 70%, 50%)",
+//   },
+//   {
+//     country: "22:00",
+//     Today: 0,
+//     TodayColor: "hsl(72, 70%, 50%)",
+//   },
+//   {
+//     country: "23:00",
+//     Today: 0,
+//     TodayColor: "hsl(9, 70%, 50%)",
+//   },
+//   {
+//     country: "24:00",
+//     Today: 0,
+//     TodayColor: "hsl(296, 70%, 50%)",
+//   },
+// ];
 
 
-export const MonthBarData = [
-  {
-    country: "1월",
-    Month: 0,
-    MonthColor: "hsl(273, 70%, 50%)",
-  },
-  {
-    country: "2월",
-    Month: 0,
-    MonthColor: "hsl(72, 70%, 50%)",
-  },
-  {
-    country: "3월",
-    Month: 0,
-    MonthColor: "hsl(9, 70%, 50%)",
-  },
-  {
-    country: "4월",
-    Month: 0,
-    MonthColor: "hsl(296, 70%, 50%)",
-  },
-  {
-    country: "5월",
-    Month: 0,
-    MonthColor: "hsl(273, 70%, 50%)",
-  },
-  {
-    country: "6월",
-    Month: 0,
-    MonthColor: "hsl(72, 70%, 50%)",
-  },
-  {
-    country: "7월",
-    Month: 0,
-    MonthColor: "hsl(9, 70%, 50%)",
-  },
-  {
-    country: "8월",
-    Month: 0,
-    MonthColor: "hsl(296, 70%, 50%)",
-  },
-  {
-    country: "9월",
-    Month: 0,
-    MonthColor: "hsl(273, 70%, 50%)",
-  },
-  {
-    country: "10월",
-    Month: 0,
-    MonthColor: "hsl(72, 70%, 50%)",
-  },
-  {
-    country: "11월",
-    Month: 14,
-    MonthColor: "hsl(9, 70%, 50%)",
-  },
-  {
-    country: "12월",
-    Month: 0,
-    MonthColor: "hsl(296, 70%, 50%)",
-  }
-];
+// export const MonthBarData = [
+//   {
+//     country: "1월",
+//     Month: 0,
+//     MonthColor: "hsl(273, 70%, 50%)",
+//   },
+//   {
+//     country: "2월",
+//     Month: 0,
+//     MonthColor: "hsl(72, 70%, 50%)",
+//   },
+//   {
+//     country: "3월",
+//     Month: 0,
+//     MonthColor: "hsl(9, 70%, 50%)",
+//   },
+//   {
+//     country: "4월",
+//     Month: 0,
+//     MonthColor: "hsl(296, 70%, 50%)",
+//   },
+//   {
+//     country: "5월",
+//     Month: 0,
+//     MonthColor: "hsl(273, 70%, 50%)",
+//   },
+//   {
+//     country: "6월",
+//     Month: 0,
+//     MonthColor: "hsl(72, 70%, 50%)",
+//   },
+//   {
+//     country: "7월",
+//     Month: 0,
+//     MonthColor: "hsl(9, 70%, 50%)",
+//   },
+//   {
+//     country: "8월",
+//     Month: 0,
+//     MonthColor: "hsl(296, 70%, 50%)",
+//   },
+//   {
+//     country: "9월",
+//     Month: 0,
+//     MonthColor: "hsl(273, 70%, 50%)",
+//   },
+//   {
+//     country: "10월",
+//     Month: 0,
+//     MonthColor: "hsl(72, 70%, 50%)",
+//   },
+//   {
+//     country: "11월",
+//     Month: 14,
+//     MonthColor: "hsl(9, 70%, 50%)",
+//   },
+//   {
+//     country: "12월",
+//     Month: 0,
+//     MonthColor: "hsl(296, 70%, 50%)",
+//   }
+// ];
 
 export const mockPieData = [
   {

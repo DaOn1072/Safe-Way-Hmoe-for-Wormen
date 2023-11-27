@@ -1,7 +1,5 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 // import EmailIcon from "@mui/icons-material/Email";
 // import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 // import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -9,7 +7,7 @@ import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import Header from "../../components/Header";
 // import LineChart from "../../components/LineChart";
 import GeographyChart from "../../components/GeographyChart";
-import BarChart from "../../components/BarChart";
+import HourlyChart from "../../components/HourlyChart";
 // import StatBox from "../../components/StatBox";
 // import ProgressCircle from "../../components/ProgressCircle";
 
@@ -19,8 +17,14 @@ import React, { useState, useEffect } from 'react';
 // import Cctv from "../ccTVViewer/index";
 import api_key from "../../api_key.json";
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
-import WeekChart from "../../components/WeekChart";
+// import WeekChart from "../../components/WeekChart";
 import WeatherT from "./Weather";
+import EmergencyLocation from "../faq";
+import PieChart from "../../components/PieChart"
+import HourlyData from "./hourlyData";
+import { Link } from 'react-router-dom';
+
+import WeekChart from "../../components/WeekChart";
 
 
 
@@ -60,19 +64,6 @@ const Dashboard = () => {
         <Box m = '20px' >
           <Box display = 'flex' justifyContent='space-between' alignItems="center">
             <Header title="DASHBOARD" subtitle="데이터 관리 대시보드" />
-          <Box>
-            <Button
-              sx = {{ backgroundColor: colors.blueAccent[700], 
-                      color: colors.grey[100], 
-                      fontSize: "14px", 
-                      fontWeight: "bold", 
-                      padding: "10px 20px"
-                    }}
-            >
-              <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-              Download Reports 
-            </Button>
-          </Box>
           </Box>
 
           {/* GRID CHARTS */}
@@ -89,13 +80,13 @@ const Dashboard = () => {
           gridRow="span 3"
           backgroundColor={colors.primary[400]}
           sx={{ }}>
-          <WeatherT weather={weather} setWeather={setWeather} />
+          <WeatherT weather={weather} setWeather={setWeather} display="flex" />
         </Box>
 
               {/* TRANSACTIONS */}
               <Box 
                 gridColumn="span 5" 
-                gridRow="span 2" 
+                gridRow="span 3" 
                 backgroundColor = {colors.primary[400]}
                 overflow="auto"
               >
@@ -108,124 +99,55 @@ const Dashboard = () => {
                   p="15px"
                 >
                   <Typography 
-                    color={colors.grey[100]} 
-                    variant="h5" 
+                    color={colors.greenAccent[500]}
+                    variant="h4" 
                     fontWeight="600"
                     backgroundColor={colors.primary[400]}
+                    display="flex"
                   >
-                    서울특별시_송파구_여성_안심귀갓길
+                    금일 신고 데이터 확인 요청
                   </Typography>
+                  <Link to="/faq" style={{ textDecoration: 'none' }}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    display="flex"
+                    sx={{fontSize: "16px", fontWeight: "bold", backgroundColor: colors.blueAccent[600], color: "white"}}
+                  >
+                  페이지 이동
+                </Button>
+                </Link>
                 </Box>
-                {mockTransactions.map((transaction, i) => (
                   <Box 
-                    key = {`${transaction.txId}-${i}`}
                     display="flex"
                     justifyContent="space-between"
                     alignItems="center"
-                    borderBottom={`4px solid ${colors.primary[500]}`} 
                     p="15px"
+                    width="100%"
                   >
                     <Box>
-                      <Typography 
-                        color={colors.greenAccent[500]} 
-                        variant="h5" 
-                        fontWeight="600"
-                    >
-                        {transaction.txId}
-                      </Typography>
-                      <Typography 
-                        color={colors.grey[100]} 
-                      >
-                        {transaction.user}
-                      </Typography>
+                      <HourlyData />
                     </Box>
-                    <Box color={colors.grey[100]}>{transaction.date}</Box>
                   </Box>
-                ))}
               </Box>
-
-              {/* 날짜, cctv */}
-              <Box
-          gridColumn="span 2"
-          gridRow="span 1"
-          backgroundColor={colors.primary[400]}
-          p="30px"
-        >
-          
-          <Typography variant="h5" fontWeight="600" color={colors.grey[100]}>
-            지역: 서울
-          </Typography>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt="5px"
-          >
-       <Typography> 15:07 맑음 <WbSunnyOutlinedIcon /> <br />강수(설)량: 0mm<br /><span>도로위험 상황예보(없음)</span></Typography>
-          </Box>
-          </Box>
-          <Box
-          gridColumn="span 3"
-          gridRow="span 1"
-          backgroundColor={colors.primary[400]}
-          alignItems="center"
-          p="30px"
-        >
-          <Typography variant="h5" fontWeight="600" color={colors.grey[100]}>
-            재난상황안내
-          </Typography>
-          <Box
-            display="flex"
-            flexDirection="column"
-            mt="10px"
-            fontSize= "19px"
-            alignItems="center"
-          >
-            <Typography fontSize= "32px" fontWeight="600" color= {colors.greenAccent[300]}>재난상황 없음</Typography>
-
-            
-
-          </Box>
-          </Box>
 
               {/* ROW 3 */}
               <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          p="30px"
-        >
-          <Typography variant="h6" fontWeight="600">
-            왕십리역오거리 CCTV 실시간 영상
-          </Typography>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt="25px"
-          >
-            
-          </Box>
-        </Box>
+  gridColumn="span 4"
+  gridRow="span 2"
+  backgroundColor={colors.primary[400]}
+  p="30px"
+>
+  <Typography variant="h5" fontWeight="600">
+    지난 주 대비 신고량 차트
+  </Typography>
+  <Box height="240px" width="100%">
+    <WeekChart />
+  </Box>
+</Box>
+
         <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ padding: "30px 30px 0 30px" }}
-          >
-            
-            방범 시스템 미설치 수치
-          </Typography>
-          <Box height="230px" mt="10px">
-            <BarChart isDashboard={true} />
-          </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
+          gridColumn="span 8"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           padding="30px"
@@ -235,22 +157,21 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ marginBottom: "15px" }}
           >
-            전 주 대비 신고량 통계
+            하루 신고량 통계
           </Typography>
-          <Box height="210px" mt="1px">
-            <WeekChart isDashboard={true} />
+          <Box height="230px" mt="1px" width="105%">
+            <HourlyChart isDashboard={true} />
           </Box>
         </Box>
-        
           </Box>
           {/* test */}
-          
           
 
         
         {/* DataGrid에서 data와 columns를 사용 */}
         {/* <DataGrid rows={Api.state.customers} columns={Api.columns} /> */}
       </Box>
+      
     );
 };
 

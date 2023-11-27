@@ -27,6 +27,7 @@ import MapKaKao from "./scenes/mapKakao";
 import PostApp from "./PostApp";
 import PostView from "./page/post/PostView";
 import EmergencyModal from "./scenes/modal";
+import AudioTest from "./scenes/audio";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -81,6 +82,7 @@ function App() {
             <Route path="/mapkakao" element={<MapKaKao />} />
             <Route path="/post" element={<PostApp />} />
             <Route path="/post/:no" element={<PostView />} />
+            <Route path="/audio" element={<AudioTest />} />
             
 
             </Routes>

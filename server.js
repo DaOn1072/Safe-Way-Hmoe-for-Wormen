@@ -1,7 +1,10 @@
+const AWS = require('aws-sdk');
+
 const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const { getS3Json } = require('./s3Reader'); // s3Reader 모듈 불러오기
 const port = process.env.PORT || 5000;
 
 
@@ -85,7 +88,6 @@ app.get('/api/report', (req, res) => {
 });
 
 
-
 app.use('/image', express.static('./upload'));
 
 app.post('/api/customers', upload.single('image'), (req, res) => {
@@ -120,6 +122,7 @@ app.delete('/api/customers/:id', (req, res) => {
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 
+
 // 신고 확인 체크
 app.put('/api/report/:id', (req, res) => {
     let sql = "UPDATE REPORT SET checkYN = 'Y' WHERE id = ?";
@@ -132,3 +135,26 @@ app.put('/api/report/:id', (req, res) => {
         }
     });
 });
+
+
+// app.post('/api/updateReportData', (req, res) => {
+//     const updatedData = req.body; // 클라이언트에서 전송된 업데이트된 데이터
+  
+//     // 데이터베이스 업데이트 로직
+//     const query = 'UPDATE REPORT_INFO SET report_data = ?, latitude = ?, hardness = ?, date = ? WHERE id = ?';
+//     updatedData.forEach((data) => {
+//       const { newValue, id } = data; // 업데이트할 새 값 및 해당하는 ID 정보
+  
+//       const { report_data, latitude, hardness, date } = newValue; // 가정한 업데이트할 컬럼 정보
+  
+//       connection.query(query, [report_data, latitude, hardness, date, id], (error, results, fields) => {
+//         if (error) {
+//           console.error('데이터베이스 업데이트 오류:', error);
+//         } else {
+//           console.log('데이터베이스 업데이트 완료:', results);
+//         }
+//       });
+//     });
+  
+//     res.status(200).json({ message: '데이터베이스 업데이트 완료' });
+//   });

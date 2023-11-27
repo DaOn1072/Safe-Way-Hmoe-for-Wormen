@@ -18,7 +18,7 @@ const CommonTableRow = ({ children }) => {
 
                 display: "flex",
                 fontSize: "20px",
-                justifyContent: index === 1 ? 'flex-first' : 'center',
+                justifyContent: 'center',
                 color: index === 4 ? colors.greenAccent[300] : colors.grey[100]
               }}
             >

@@ -1,4 +1,3 @@
-import { getPostByNo } from '../../Data';
 import { useNavigate, useParams } from 'react-router-dom';
 import './Post.css';
 import Header from '../../components/Header';
@@ -13,13 +12,24 @@ const PostView = () => {
   const [data, setData] = useState({});
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  
   useEffect(() => {
     console.log("Fetching data for post:", no);
-    const postData = getPostByNo(no);
-    console.log("Fetched data:", postData);
-    setData(postData);
+    fetchData(no); // Fetch data when the component mounts
   }, [no]);
+
+  const fetchData = (postId) => {
+    // Use an API endpoint to fetch data based on postId
+    fetch(`/api/posts/${postId}`) // Replace this with your API endpoint
+      .then((response) => response.json())
+      .then((postData) => {
+        console.log("Fetched data:", postData);
+        setData(postData);
+      })
+      .catch((error) => console.error(error));
+  };
+
+  
 
   const goBack = () => {
     navigate(-1); // Go back to the previous page
@@ -51,26 +61,24 @@ const PostView = () => {
             <>
               <div className="post-view-row" >
                 <label style={{  color: colors.greenAccent[400], fontWeight: "bold" }}>게시글 번호</label>
-                <label>{ data.no }</label>
+                <label>d</label>
               </div>
               <div className="post-view-row">
                 <label style={{  color: colors.greenAccent[400], fontWeight: "bold" }}>근처 도로</label>
-                <label>{ data.title }</label>
+                <label>d</label>
               </div>
               <div className="post-view-row">
                 <label style={{  color: colors.greenAccent[400], fontWeight: "bold" }}>발생일</label>
-                <label>{ data.createDate }</label>
+                <label>d</label>
               </div>
               <div className="post-view-row">
                 <label style={{  color: colors.greenAccent[400], fontWeight: "bold" }}>연결된 경찰서</label>
-                <label>{ data.readCount }</label>
+                <label>d</label>
               </div>
               <div className="post-view-row">
                 <label style={{  color: colors.greenAccent[400], fontWeight: "bold" }}>신고 내용</label>
                 <div>
-                  {
-                    data.content
-                  }
+                  d
                 </div>
               </div>
             </>

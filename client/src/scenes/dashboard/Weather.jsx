@@ -176,7 +176,7 @@ const setCity = (selectedCity) => {
         src={getIframeURL()} // Use the function to get the URL dynamically
         width="100%" 
         height="300"
-        style={{ maxWidth: "800px" }} 
+        style={{ maxWidth: "800px", transform: "scale(1.0)" }} 
       />
       <div>
         <p style={{ textAlign: "center", color: colors.greenAccent[500]}}>*실제 상황과 최대 60초 정도 차이날 수 있습니다. 경찰청(UTIC)제공</p>
