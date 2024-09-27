@@ -1,5 +1,5 @@
 const request = require('request')
-const serviceKey = 'N8Sy3LEAg0b0IiqvcPcL7Bbj8eQ8hOVXGhXP6vbSY79CoNzdCLj8vR1amEHe'
+const serviceKey = '(서비스키)'
 //공공데이터 포털에서 받은 내 서비스키 
 
 var parse = require('json-parse')
