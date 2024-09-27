@@ -1,5 +1,5 @@
 const button = document.querySelector('.button');
-const API_KEY = 'bf79aeb4dc1d6621846908e3a7411705';
+const API_KEY = '(지급받은 서비스 키)';
 
 button.addEventListener('click', () => {
     navigator.geolocation.getCurrentPosition(success, fail);
