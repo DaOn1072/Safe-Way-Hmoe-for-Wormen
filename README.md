@@ -57,7 +57,7 @@
 
 | 관제메인 페이지 | 보호구역 페이지 | 안심귀갓길 페이지 | 지킴이집 페이지 |
 |:--------:|:--------:|:--------:|:--------:|
-| <img src="https://github.com/user-attachments/assets/b1e8086d-d9da-4ff1-bead-2782452e14e2" alt="1 페이지" width="400" /> | <img src="https://github.com/user-attachments/assets/133661d3-7d5b-4f24-8820-df6aa5d8ed82" alt="2 페이지" width="400" /> | <img src="https://github.com/user-attachments/assets/f16a40d3-c0e1-4902-ba75-2b767146f6cb" alt="3 페이지" width="400" /> | <img src="https://github.com/user-attachments/assets/7b109091-8cd2-4a8c-a430-545dac2e1fbd" alt="4 페이지" width="400" /> |
+| <img src="https://github.com/assets/b1e8086d-d9da-4ff1-bead-2782452e14e2" alt="1 페이지" width="400" /> | <img src="https://github.com/user-attachments/assets/133661d3-7d5b-4f24-8820-df6aa5d8ed82" alt="2 페이지" width="400" /> | <img src="https://github.com/user-attachments/assets/f16a40d3-c0e1-4902-ba75-2b767146f6cb" alt="3 페이지" width="400" /> | <img src="https://github.com/user-attachments/assets/7b109091-8cd2-4a8c-a430-545dac2e1fbd" alt="4 페이지" width="400" /> |
 | 데이터를 한눈에 볼 수 있도록 모아둔 메인 화면 | 전국 어린이, 노인, 장애인 보호구역 데이터 제공 | 서울특별시의 안심 귀갓길 인근에 위치한 안전시설물 데이터 제공 | 여성안심 지킴이 집의 위치와 데이터 제공 |
 | 경찰청_경찰관서 위치 | 신고 수신 페이지 | 신고 게시판 페이지 | 날짜별 통계 차트 |
 | <img src="https://github.com/user-attachments/assets/ad9a8ae7-66a2-4311-aeec-66f1d99f8c83" alt="이미지 5" width="200" /> | <img src="https://github.com/user-attachments/assets/df923e16-70b1-4b54-8fbc-520a1e754841" alt="이미지 6" width="200" /> | <img src="https://github.com/user-attachments/assets/b5ee8326-eb03-44c1-a026-2a2c99c67544" alt="이미지 7" width="200" /> | <img src="https://github.com/user-attachments/assets/27d68d89-df83-4534-a512-1a0edafc0c0d" alt="이미지 8" width="200" /> |
