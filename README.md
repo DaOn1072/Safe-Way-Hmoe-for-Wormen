@@ -60,7 +60,7 @@
 | <img src="https://github.com/user-attachments/assets/2d0e14ae-60bb-42bd-86b9-fb0dfc4e74ed" alt="1 페이지" width="400" /> | <img src="https://github.com/user-attachments/assets/33ec72e1-879e-4c08-bb72-5ba7f2a22722" alt="2 페이지" width="400" /> | <img src="https://github.com/user-attachments/assets/0d95dab3-ee1b-4210-8f54-110182927176" alt="3 페이지" width="400" /> | <img src="https://github.com/user-attachments/assets/1775017b-d96e-4477-a8a3-f41d4d85ed8d" alt="4 페이지" width="400" /> |
 | 데이터를 한눈에 볼 수 있도록 모아둔 메인 화면 | 전국 어린이, 노인, 장애인 보호구역 데이터 제공 | 서울특별시의 안심 귀갓길 인근에 위치한 안전시설물 데이터 제공 | 여성안심 지킴이 집의 위치와 데이터 제공 |
 | 경찰청_경찰관서 위치 | 신고 수신 페이지 | 신고 게시판 페이지 | 날짜별 통계 차트 |
-| <img src="https://github.com/user-attachments/assets/30cdc8e4-8164-49fb-bc96-c5c9ec4cddab" alt="이미지 5" width="200" /> | <img src="https://github.com/user-attachments/assets/f851e46d-abd4-428d-a266-a0ad8217cba3" alt="이미지 6" width="200" /> | <img src="https://github.com/user-attachments/assets/b5ee8326-eb03-44c1-a026-2a2c99c67544" alt="이미지 7" width="200" /> | <img src="https://github.com/user-attachments/assets/ed658386-d1d8-485e-9e52-57fc813b0b08" alt="이미지 8" width="200" /> |
+| <img src="https://github.com/user-attachments/assets/30cdc8e4-8164-49fb-bc96-c5c9ec4cddab" alt="이미지 5" width="200" /> | <img src="https://github.com/user-attachments/assets/f851e46d-abd4-428d-a266-a0ad8217cba3" alt="이미지 6" width="200" /> | <img src="https://github.com/user-attachments/assets/b11c46a9-5cef-4fcd-a2e3-a197e1d154df" alt="이미지 7" width="200" /> | <img src="https://github.com/user-attachments/assets/ed658386-d1d8-485e-9e52-57fc813b0b08" alt="이미지 8" width="200" /> |
 | 경찰서, 관서명, 지구대, 파출소 주소 정보 제공 | 들어온 신고 정보 제공 및 즉각적인 신고 대처 | 저장된 신고 상세 내용 확인 | 하루, 주간, 월별 통계 차트로 신고량 확인 |
 
 
