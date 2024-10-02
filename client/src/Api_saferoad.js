@@ -1,86 +1,93 @@
 import React, { Component } from 'react';
+// 'Customer' 컴포넌트를 가져오려는 주석 처리된 코드입니다.
 // import Customer from './components/Customer';
 
+import { DataGrid } from "@mui/x-data-grid"; // MUI의 데이터 그리드를 가져옵니다.
+import './App.css'; // 스타일시트를 가져옵니다.
+import { withStyles } from '@mui/styles'; // 스타일을 적용하기 위한 HOC를 가져옵니다.
 
-import { DataGrid } from "@mui/x-data-grid";
-import './App.css';
-import { withStyles } from '@mui/styles';
-
-
+// 스타일 객체를 정의합니다. 테마를 사용하여 스타일을 설정합니다.
 const styles = (theme) => ({
   root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: "auto",
+    width: '100%', // 컨테이너의 너비를 100%로 설정합니다.
+    marginTop: theme.spacing.unit * 3, // 위쪽 여백을 설정합니다.
+    overflowX: "auto", // 가로 오버플로우를 자동으로 설정합니다.
   },
   table: {
-    minWidth: 1080,
+    minWidth: 1080, // 최소 너비를 1080px로 설정합니다.
   },
   progress: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing.unit * 2, // 진행 상태의 여백을 설정합니다.
   },
 });
 
+// Api_saferoad 컴포넌트를 정의합니다.
 class Api_saferoad extends Component {
   constructor(props) {
     super(props);
+    // 초기 상태를 설정합니다. 고객 데이터 배열과 진행 상태를 포함합니다.
     this.state = {
-      customers: [],
-      completed: 0,
+      customers: [], // 고객 데이터를 저장할 배열입니다.
+      completed: 0, // 진행 상태를 나타내는 값입니다.
     };
   }
 
+  // 상태를 초기화하는 메서드입니다. 고객 데이터를 비우고 API를 호출합니다.
   stateRefresh = () => {
     this.setState({
-      customers: [],
-      completed: 0,
+      customers: [], // 고객 데이터를 비웁니다.
+      completed: 0, // 진행 상태를 초기화합니다.
     });
-    this.callApi()
-      .then((res) => this.setState({ customers: res }))
-      .catch((err) => console.log(err));
+    this.callApi() // API를 호출하여 고객 데이터를 가져옵니다.
+      .then((res) => this.setState({ customers: res })) // 데이터가 성공적으로 반환되면 상태를 업데이트합니다.
+      .catch((err) => console.log(err)); // 에러가 발생하면 콘솔에 로그를 출력합니다.
   };
 
+  // 컴포넌트가 마운트될 때 호출되는 생명주기 메서드입니다.
   componentDidMount() {
-    this.timer = setInterval(this.progress, 20);
-    this.callApi()
-      .then((res) => this.setState({ customers: res }))
-      .catch((err) => console.log(err));
+    this.timer = setInterval(this.progress, 20); // 일정 간격으로 진행 상태를 업데이트하는 타이머를 설정합니다.
+    this.callApi() // API를 호출하여 고객 데이터를 가져옵니다.
+      .then((res) => this.setState({ customers: res })) // 데이터가 성공적으로 반환되면 상태를 업데이트합니다.
+      .catch((err) => console.log(err)); // 에러가 발생하면 콘솔에 로그를 출력합니다.
   }
 
+  // 고객 데이터를 가져오는 비동기 메서드입니다.
   callApi = async () => {
-    const response = await fetch('/api/saferoad');
-    const body = await response.json();
-    return body;
+    const response = await fetch('/api/saferoad'); // API에 요청을 보냅니다.
+    const body = await response.json(); // 응답을 JSON 형식으로 변환합니다.
+    return body; // 변환된 데이터를 반환합니다.
   };
 
+  // 진행 상태를 업데이트하는 메서드입니다.
   progress = () => {
-    const { completed } = this.state;
-    this.setState({ completed: completed >= 100 ? 0 : completed + 1 });
+    const { completed } = this.state; // 현재 진행 상태를 가져옵니다.
+    this.setState({ completed: completed >= 100 ? 0 : completed + 1 }); // 진행 상태가 100 이상이면 0으로 초기화합니다.
   };
 
+  // 렌더링 메서드입니다.
   render() {
-    const { classes } = this.props;
-    const columns = [
-      { field: "city_county_district", headerName: "시군구명", flex: 0.5 },
-      { field: "eup_dong_myeong", headerName: "읍면동명" },
-      { field: "safety_bells_cnt", headerName: "안심벨 수" },
-      { field: "cctv_cnt", headerName: "CCTV 수" },
-      { field: "security_light_cnt", headerName: "보안등 수" },
-      { field: "information_sign_cnt", headerName: "안내표시 수" },
-      { field: "safe_return_road", headerName: "안심귀갓길명" },
-      { field: "detailed_location", headerName: "세부위치" },
+    const { classes } = this.props; // 클래스 스타일을 가져옵니다.
+    const columns = [ // 데이터 그리드의 열을 정의합니다.
+      { field: "city_county_district", headerName: "시군구명", flex: 0.5 }, // 시군구명 열
+      { field: "eup_dong_myeong", headerName: "읍면동명" }, // 읍면동명 열
+      { field: "safety_bells_cnt", headerName: "안심벨 수" }, // 안심벨 수 열
+      { field: "cctv_cnt", headerName: "CCTV 수" }, // CCTV 수 열
+      { field: "security_light_cnt", headerName: "보안등 수" }, // 보안등 수 열
+      { field: "information_sign_cnt", headerName: "안내표시 수" }, // 안내표시 수 열
+      { field: "safe_return_road", headerName: "안심귀갓길명" }, // 안심귀갓길명 열
+      { field: "detailed_location", headerName: "세부위치" }, // 세부위치 열
     ];
 
-    return (
-      <div className={classes.root}>
-        <DataGrid
-          rows={this.state.customers}
-          columns={columns}
+    return ( // JSX를 반환합니다.
+      <div className={classes.root}> // 스타일이 적용된 div를 생성합니다.
+        <DataGrid // 데이터 그리드를 렌더링합니다.
+          rows={this.state.customers} // 고객 데이터 행을 설정합니다.
+          columns={columns} // 정의한 열을 설정합니다.
         />
       </div>
-      
     );
   }
 }
 
+// 스타일을 적용한 Api_saferoad 컴포넌트를 내보냅니다.
 export default withStyles(styles)(Api_saferoad);
