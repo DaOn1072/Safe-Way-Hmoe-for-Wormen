@@ -19,3 +19,6 @@ JavaScript, React.js를 사용하여 제작하였습니다.
 
 
 ## Back-end
+
+Node.js와 AWS S3를 사용하여 서버를 작동시킵니다. </br>
+DB로부터 데이터를 가져오고, 저장을 합니다.
